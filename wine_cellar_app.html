@@ -185,6 +185,76 @@
             color: #1e3c72;
         }
 
+        /* DASHBOARD STATS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .stat-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .stat-sublabel {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        /* VIEW SELECTOR */
+        .view-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            background: rgba(255,255,255,0.98);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .view-btn {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-btn.active {
+            background: #2a5298;
+            color: white;
+        }
+
+        /* CARD VIEW (existing) */
         .wine-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -281,6 +351,163 @@
 
         .btn-view:hover {
             background: #4f46e5;
+        }
+
+        /* KANBAN/METRO VIEW */
+        .wine-kanban {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .wine-kanban-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wine-kanban-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .wine-kanban-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .kanban-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .kanban-name {
+            font-size: 20px;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .kanban-year {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .kanban-info {
+            margin: 8px 0;
+            font-size: 14px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .kanban-price {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 15px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .kanban-qty {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin: 10px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .kanban-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .kanban-actions button {
+            flex: 1;
+            background: rgba(255,255,255,0.9);
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .kanban-actions button:hover {
+            background: white;
+        }
+
+        /* TABLE VIEW */
+        .wine-table-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .wine-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .wine-table thead {
+            background: #2a5298;
+            color: white;
+        }
+
+        .wine-table th {
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .wine-table tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+            transition: all 0.2s;
+        }
+
+        .wine-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .wine-table td {
+            padding: 12px 10px;
+            font-size: 14px;
+        }
+
+        .table-name {
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .table-actions button {
+            padding: 5px 10px;
+            font-size: 12px;
         }
 
         .modal {
@@ -419,7 +646,7 @@
         }
 
         @media (max-width: 768px) {
-            .wine-grid {
+            .wine-grid, .wine-kanban {
                 grid-template-columns: 1fr;
             }
 
@@ -438,6 +665,15 @@
 
             .filter-group select {
                 flex: 1;
+            }
+
+            .wine-table {
+                font-size: 12px;
+            }
+
+            .wine-table th,
+            .wine-table td {
+                padding: 8px 5px;
             }
         }
     </style>
@@ -463,39 +699,55 @@
                 </div>
             </header>
 
-            <div class="controls">
-                <div class="filters">
-                    <div class="filter-group">
-                        <label>Ordina per:</label>
-                        <select id="sortBy">
-                            <option value="residuo-desc-prezzo-asc">Residuo ↓ / Prezzo ↑</option>
-                            <option value="nome-asc">Nome A→Z</option>
-                            <option value="nome-desc">Nome Z→A</option>
-                            <option value="prezzo-asc">Prezzo ↑</option>
-                            <option value="prezzo-desc">Prezzo ↓</option>
-                            <option value="residuo-asc">Residuo ↑</option>
-                            <option value="residuo-desc">Residuo ↓</option>
-                        </select>
-                    </div>
-
-                    <div class="toggle">
-                        <input type="checkbox" id="hideEmpty">
-                        <label for="hideEmpty">Nascondi esauriti</label>
-                    </div>
-                </div>
-
-                <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="🔍 Cerca per nome, cantina, vitigno...">
-                </div>
-            </div>
-
+            <!-- TABS -->
             <div class="tabs" id="tabsContainer">
-                <div class="tab active" data-tab="Rossi">🍷 Rossi</div>
+                <div class="tab active" data-tab="Dashboard">📊 Dashboard</div>
+                <div class="tab" data-tab="Rossi">🍷 Rossi</div>
                 <div class="tab" data-tab="Bianchi">🥂 Bianchi</div>
                 <div class="tab" data-tab="Frizzanti">🍾 Frizzanti</div>
             </div>
 
-            <div id="wineContainer" class="loading">Caricamento dati...</div>
+            <!-- DASHBOARD -->
+            <div id="dashboardView">
+                <div class="stats-grid" id="statsContainer"></div>
+            </div>
+
+            <!-- WINE VIEWS -->
+            <div id="wineViews" class="hidden">
+                <div class="controls">
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label>Ordina per:</label>
+                            <select id="sortBy">
+                                <option value="residuo-desc-prezzo-asc">Residuo ↓ / Prezzo ↑</option>
+                                <option value="nome-asc">Nome A→Z</option>
+                                <option value="nome-desc">Nome Z→A</option>
+                                <option value="prezzo-asc">Prezzo ↑</option>
+                                <option value="prezzo-desc">Prezzo ↓</option>
+                                <option value="residuo-asc">Residuo ↑</option>
+                                <option value="residuo-desc">Residuo ↓</option>
+                            </select>
+                        </div>
+
+                        <div class="toggle">
+                            <input type="checkbox" id="hideEmpty">
+                            <label for="hideEmpty">Nascondi esauriti</label>
+                        </div>
+                    </div>
+
+                    <div class="search-bar">
+                        <input type="text" id="searchInput" placeholder="🔍 Cerca per nome, cantina, vitigno...">
+                    </div>
+                </div>
+
+                <div class="view-selector">
+                    <div class="view-btn active" data-view="cards">📇 Schede</div>
+                    <div class="view-btn" data-view="kanban">🎨 Metro</div>
+                    <div class="view-btn" data-view="table">📋 Tabella</div>
+                </div>
+
+                <div id="wineContainer" class="loading">Caricamento dati...</div>
+            </div>
         </div>
     </div>
 
@@ -560,14 +812,16 @@
 
     <script>
         var wineData = { Rossi: [], Bianchi: [], Frizzanti: [] };
-        var currentTab = 'Rossi';
+        var currentTab = 'Dashboard';
+        var currentView = 'cards';
         var accessToken = null;
         var currentWine = null;
         var isEditMode = false;
         var wineRegistry = {};
+        var stats = {};
 
-		const CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com';
-				const SPREADSHEET_ID = '1NF86I2BdDGmpOvas5t8-AyUcjLAGuNrg8y-3Et8n8Js';
+        const CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com';
+		var SPREADSHEET_ID = '1NF86I2BdDGmpOvas5t8-AyUcjLAGuNrg8y-3Et8n8Js';
 
         document.getElementById('loginBtn').addEventListener('click', handleAuth);
         document.getElementById('logoutBtn').addEventListener('click', handleLogout);
@@ -581,6 +835,12 @@
         document.querySelectorAll('.tab').forEach(function(tab) {
             tab.addEventListener('click', function() {
                 switchTab(this.getAttribute('data-tab'));
+            });
+        });
+
+        document.querySelectorAll('.view-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                switchView(this.getAttribute('data-view'));
             });
         });
 
@@ -652,7 +912,9 @@
                     wineData[sheet] = parseWineData(data.values || [], sheet);
                 }
 
-                applySortAndFilter();
+                calculateStats();
+                displayDashboard();
+
             } catch (error) {
                 document.getElementById('wineContainer').innerHTML = 
                     '<div class="error">Errore: ' + error.message + '</div>';
@@ -684,7 +946,99 @@
             return result;
         }
 
+        function calculateStats() {
+            stats = { Rossi: {}, Bianchi: {}, Frizzanti: {}, Totale: {} };
+
+            var types = ['Rossi', 'Bianchi', 'Frizzanti'];
+            var grandTotal = { qta: 0, residuo: 0, costoEffettivo: 0, costoPieno: 0 };
+
+            for (var i = 0; i < types.length; i++) {
+                var type = types[i];
+                var wines = wineData[type];
+                var typeStats = { qta: 0, residuo: 0, costoEffettivo: 0, costoPieno: 0 };
+
+                for (var j = 0; j < wines.length; j++) {
+                    var wine = wines[j];
+                    typeStats.qta += wine.qta;
+                    typeStats.residuo += wine.residuo;
+
+                    var prezzo = parseFloat(wine.prezzo) || 0;
+                    var prezzoPieno = parseFloat(wine.prezzopieno) || 0;
+
+                    typeStats.costoEffettivo += prezzo * wine.qta;
+                    typeStats.costoPieno += (prezzoPieno || prezzo) * wine.qta;
+                }
+
+                stats[type] = typeStats;
+                grandTotal.qta += typeStats.qta;
+                grandTotal.residuo += typeStats.residuo;
+                grandTotal.costoEffettivo += typeStats.costoEffettivo;
+                grandTotal.costoPieno += typeStats.costoPieno;
+            }
+
+            stats.Totale = grandTotal;
+        }
+
+        function displayDashboard() {
+            var container = document.getElementById('statsContainer');
+            var html = '';
+
+            var types = [
+                { key: 'Totale', label: 'Totale Generale', icon: '🍾' },
+                { key: 'Rossi', label: 'Vini Rossi', icon: '🍷' },
+                { key: 'Bianchi', label: 'Vini Bianchi', icon: '🥂' },
+                { key: 'Frizzanti', label: 'Frizzanti', icon: '🍾' }
+            ];
+
+            for (var i = 0; i < types.length; i++) {
+                var t = types[i];
+                var s = stats[t.key];
+
+                html += '<div class="stat-card">';
+                html += '<div class="stat-icon">' + t.icon + '</div>';
+                html += '<div class="stat-label">' + t.label + '</div>';
+                html += '<div class="stat-value">' + s.qta + ' bot.</div>';
+                html += '<div class="stat-sublabel">Residuo: ' + s.residuo + ' bot.</div>';
+                html += '<hr style="margin: 15px 0; border: none; border-top: 1px solid #e0e0e0;">';
+                html += '<div class="wine-info">💰 Costo Effettivo: <strong>€' + s.costoEffettivo.toFixed(2) + '</strong></div>';
+                html += '<div class="wine-info">💎 Costo Pieno: <strong>€' + s.costoPieno.toFixed(2) + '</strong></div>';
+                html += '</div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+
+            document.querySelectorAll('.tab').forEach(function(t) {
+                t.classList.remove('active');
+            });
+            document.querySelector('.tab[data-tab="' + tab + '"]').classList.add('active');
+
+            if (tab === 'Dashboard') {
+                document.getElementById('dashboardView').classList.remove('hidden');
+                document.getElementById('wineViews').classList.add('hidden');
+                displayDashboard();
+            } else {
+                document.getElementById('dashboardView').classList.add('hidden');
+                document.getElementById('wineViews').classList.remove('hidden');
+                applySortAndFilter();
+            }
+        }
+
+        function switchView(view) {
+            currentView = view;
+            document.querySelectorAll('.view-btn').forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+            document.querySelector('.view-btn[data-view="' + view + '"]').classList.add('active');
+            applySortAndFilter();
+        }
+
         function applySortAndFilter() {
+            if (currentTab === 'Dashboard') return;
+
             var wines = wineData[currentTab].slice();
 
             var searchTerm = document.getElementById('searchInput').value.toLowerCase();
@@ -727,10 +1081,16 @@
                 return 0;
             });
 
-            displayWines(filtered);
+            if (currentView === 'cards') {
+                displayCardsView(filtered);
+            } else if (currentView === 'kanban') {
+                displayKanbanView(filtered);
+            } else if (currentView === 'table') {
+                displayTableView(filtered);
+            }
         }
 
-        function displayWines(wines) {
+        function displayCardsView(wines) {
             var container = document.getElementById('wineContainer');
 
             if (wines.length === 0) {
@@ -764,7 +1124,99 @@
 
             html += '</div>';
             container.innerHTML = html;
+            attachEventListeners();
+        }
 
+        function displayKanbanView(wines) {
+            var container = document.getElementById('wineContainer');
+
+            if (wines.length === 0) {
+                container.innerHTML = '<div class="loading">Nessun vino trovato</div>';
+                return;
+            }
+
+            wineRegistry = {};
+            var html = '<div class="wine-kanban">';
+
+            var colors = [
+                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                'linear-gradient(135deg, #30cfd0 0%, #330867 100%)'
+            ];
+
+            for (var i = 0; i < wines.length; i++) {
+                var wine = wines[i];
+                var wineId = 'wine_' + currentTab + '_' + i;
+                var disabled = wine.residuo === 0 ? ' disabled' : '';
+                var gradient = colors[i % colors.length];
+
+                wineRegistry[wineId] = wine;
+
+                html += '<div class="wine-kanban-card" style="background: ' + gradient + ';">';
+                html += '<div class="kanban-header">';
+                html += '<div class="kanban-name">' + escapeHtml(wine.nome) + '</div>';
+                html += '<div class="kanban-year">' + escapeHtml(wine.anno) + '</div>';
+                html += '</div>';
+                html += '<div class="kanban-info">🏛️ ' + escapeHtml(wine.cantina) + '</div>';
+                html += '<div class="kanban-info">🍇 ' + escapeHtml(wine.vitigni) + '</div>';
+                html += '<div class="kanban-price">&euro;' + escapeHtml(wine.prezzo) + '</div>';
+                html += '<div class="kanban-qty">📦 ' + wine.residuo + ' / ' + wine.qta + ' bottiglie</div>';
+                html += '<div class="kanban-actions">';
+                html += '<button data-wine-id="' + wineId + '" data-delta="1">+</button>';
+                html += '<button data-wine-id="' + wineId + '" data-delta="-1"' + disabled + '>-</button>';
+                html += '<button data-wine-id="' + wineId + '" class="btn-view-kanban">📋</button>';
+                html += '</div>';
+                html += '</div>';
+            }
+
+            html += '</div>';
+            container.innerHTML = html;
+            attachEventListeners();
+        }
+
+        function displayTableView(wines) {
+            var container = document.getElementById('wineContainer');
+
+            if (wines.length === 0) {
+                container.innerHTML = '<div class="loading">Nessun vino trovato</div>';
+                return;
+            }
+
+            wineRegistry = {};
+            var html = '<div class="wine-table-container"><table class="wine-table">';
+            html += '<thead><tr>';
+            html += '<th>Nome</th><th>Anno</th><th>Cantina</th><th>Vitigno</th>';
+            html += '<th>Prezzo</th><th>Qta</th><th>Residuo</th><th>Azioni</th>';
+            html += '</tr></thead><tbody>';
+
+            for (var i = 0; i < wines.length; i++) {
+                var wine = wines[i];
+                var wineId = 'wine_' + currentTab + '_' + i;
+                var disabled = wine.residuo === 0 ? ' disabled' : '';
+
+                wineRegistry[wineId] = wine;
+
+                html += '<tr>';
+                html += '<td class="table-name">' + escapeHtml(wine.nome) + '</td>';
+                html += '<td>' + escapeHtml(wine.anno) + '</td>';
+                html += '<td>' + escapeHtml(wine.cantina) + '</td>';
+                html += '<td>' + escapeHtml(wine.vitigni) + '</td>';
+                html += '<td>&euro;' + escapeHtml(wine.prezzo) + '</td>';
+                html += '<td>' + wine.qta + '</td>';
+                html += '<td><strong>' + wine.residuo + '</strong></td>';
+                html += '<td><div class="table-actions">';
+                html += '<button class="btn-add" data-wine-id="' + wineId + '" data-delta="1">+</button>';
+                html += '<button class="btn-remove" data-wine-id="' + wineId + '" data-delta="-1"' + disabled + '>-</button>';
+                html += '<button class="btn-view" data-wine-id="' + wineId + '">📋</button>';
+                html += '</div></td>';
+                html += '</tr>';
+            }
+
+            html += '</tbody></table></div>';
+            container.innerHTML = html;
             attachEventListeners();
         }
 
@@ -777,7 +1229,7 @@
                 });
             });
 
-            document.querySelectorAll('.btn-view').forEach(function(btn) {
+            document.querySelectorAll('.btn-view, .btn-view-kanban').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     var wineId = this.getAttribute('data-wine-id');
                     viewWine(wineId);
@@ -907,20 +1359,11 @@
                 if (!response.ok) throw new Error('Errore');
 
                 wine.residuo = newQty;
-                applySortAndFilter();
+                await loadData();
 
             } catch (error) {
                 alert('Errore: ' + error.message);
             }
-        }
-
-        function switchTab(tab) {
-            currentTab = tab;
-            document.querySelectorAll('.tab').forEach(function(t) {
-                t.classList.remove('active');
-            });
-            document.querySelector('.tab[data-tab="' + tab + '"]').classList.add('active');
-            applySortAndFilter();
         }
     </script>
 </body>
