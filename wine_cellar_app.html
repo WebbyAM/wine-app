@@ -454,7 +454,7 @@
             background: white;
         }
 
-        /* TABELLA SEMPLIFICATA */
+        /* TABELLA MIGLIORATA - Righe alternate e font scuro */
         .wine-table-container {
             background: white;
             border-radius: 12px;
@@ -490,13 +490,22 @@
             transition: all 0.2s;
         }
 
-        .wine-table tbody tr:hover {
+        .wine-table tbody tr:nth-child(even) {
             background: #f8f9fa;
+        }
+
+        .wine-table tbody tr:nth-child(odd) {
+            background: white;
+        }
+
+        .wine-table tbody tr:hover {
+            background: #e3f2fd !important;
         }
 
         .wine-table td {
             padding: 12px;
             font-size: 14px;
+            color: #1a1a1a;
         }
 
         .table-name {
@@ -673,7 +682,7 @@
             background: rgba(99, 102, 241, 0.5);
         }
 
-        /* MINIMALIST LIGHT VIEW - NUOVA! */
+        /* MINIMALIST LIGHT VIEW - PULSANTI MINIMAL */
         .wine-minimal-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -764,22 +773,48 @@
         .minimal-actions button {
             flex: 1;
             padding: 6px;
-            font-size: 12px;
-            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            border-radius: 4px;
+            background: transparent;
+            border: 1px solid #d0d0d0;
+            color: #555;
+            transition: all 0.2s;
         }
 
         .minimal-actions .btn-add {
+            border-color: #10b981;
+            color: #10b981;
+            background: transparent;
+        }
+
+        .minimal-actions .btn-add:hover {
             background: #10b981;
+            color: white;
         }
 
         .minimal-actions .btn-remove {
+            border-color: #ef4444;
+            color: #ef4444;
+            background: transparent;
+        }
+
+        .minimal-actions .btn-remove:hover {
             background: #ef4444;
+            color: white;
         }
 
         .minimal-actions .btn-view {
-            background: #6366f1;
+            border-color: #6366f1;
+            color: #6366f1;
+            background: transparent;
             margin: 0;
             width: auto;
+        }
+
+        .minimal-actions .btn-view:hover {
+            background: #6366f1;
+            color: white;
         }
 
         .modal {
@@ -1091,8 +1126,9 @@
         var wineRegistry = {};
         var stats = {};
 
-        const CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com';
-		var SPREADSHEET_ID = '1NF86I2BdDGmpOvas5t8-AyUcjLAGuNrg8y-3Et8n8Js';
+        
+		var CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com';
+        var SPREADSHEET_ID = '1NF86I2BdDGmpOvas5t8-AyUcjLAGuNrg8y-3Et8n8Js';
 
         document.getElementById('loginBtn').addEventListener('click', handleAuth);
         document.getElementById('logoutBtn').addEventListener('click', handleLogout);
