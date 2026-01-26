@@ -247,6 +247,7 @@
             cursor: pointer;
             transition: all 0.3s;
             border: 2px solid transparent;
+            font-size: 13px;
         }
 
         .view-btn.active {
@@ -453,6 +454,7 @@
             background: white;
         }
 
+        /* TABELLA SEMPLIFICATA */
         .wine-table-container {
             background: white;
             border-radius: 12px;
@@ -463,7 +465,6 @@
         .wine-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 1200px;
         }
 
         .wine-table thead {
@@ -475,7 +476,7 @@
         }
 
         .wine-table th {
-            padding: 15px 10px;
+            padding: 15px 12px;
             text-align: left;
             font-weight: 600;
             font-size: 13px;
@@ -494,7 +495,7 @@
         }
 
         .wine-table td {
-            padding: 12px 10px;
+            padding: 12px;
             font-size: 14px;
         }
 
@@ -506,10 +507,11 @@
         .table-actions {
             display: flex;
             gap: 5px;
+            white-space: nowrap;
         }
 
         .table-actions button {
-            padding: 5px 10px;
+            padding: 6px 12px;
             font-size: 12px;
         }
 
@@ -671,6 +673,115 @@
             background: rgba(99, 102, 241, 0.5);
         }
 
+        /* MINIMALIST LIGHT VIEW - NUOVA! */
+        .wine-minimal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .wine-minimal-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            transition: all 0.2s ease;
+            border-left: 3px solid #2a5298;
+            position: relative;
+        }
+
+        .wine-minimal-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transform: translateX(2px);
+        }
+
+        .minimal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .minimal-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e3c72;
+            flex: 1;
+            line-height: 1.3;
+        }
+
+        .minimal-year {
+            font-size: 12px;
+            color: #666;
+            background: #f5f5f5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .minimal-cantina {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .minimal-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .minimal-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2a5298;
+        }
+
+        .minimal-qty {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .minimal-qty-num {
+            font-weight: 600;
+            color: #10b981;
+        }
+
+        .minimal-qty-num.zero {
+            color: #9e9e9e;
+        }
+
+        .minimal-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .minimal-actions button {
+            flex: 1;
+            padding: 6px;
+            font-size: 12px;
+            border-radius: 6px;
+        }
+
+        .minimal-actions .btn-add {
+            background: #10b981;
+        }
+
+        .minimal-actions .btn-remove {
+            background: #ef4444;
+        }
+
+        .minimal-actions .btn-view {
+            background: #6366f1;
+            margin: 0;
+            width: auto;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -807,7 +918,7 @@
         }
 
         @media (max-width: 768px) {
-            .wine-grid, .wine-kanban, .wine-glass-grid {
+            .wine-grid, .wine-kanban, .wine-glass-grid, .wine-minimal-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -830,12 +941,11 @@
 
             .wine-table {
                 font-size: 12px;
-                min-width: 100%;
             }
 
             .wine-table th,
             .wine-table td {
-                padding: 8px 5px;
+                padding: 8px 6px;
             }
         }
     </style>
@@ -903,6 +1013,7 @@
                     <div class="view-btn active" data-view="cards">📇 Schede</div>
                     <div class="view-btn" data-view="kanban">🎨 Metro</div>
                     <div class="view-btn" data-view="glass">✨ Glass</div>
+                    <div class="view-btn" data-view="minimal">⚡ Minimal</div>
                     <div class="view-btn" data-view="table">📋 Tabella</div>
                 </div>
 
@@ -980,8 +1091,8 @@
         var wineRegistry = {};
         var stats = {};
 
-        		var CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com';
-        var SPREADSHEET_ID = '1NF86I2BdDGmpOvas5t8-AyUcjLAGuNrg8y-3Et8n8Js';
+        const CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com';
+		var SPREADSHEET_ID = '1NF86I2BdDGmpOvas5t8-AyUcjLAGuNrg8y-3Et8n8Js';
 
         document.getElementById('loginBtn').addEventListener('click', handleAuth);
         document.getElementById('logoutBtn').addEventListener('click', handleLogout);
@@ -1247,6 +1358,8 @@
                 displayKanbanView(filtered);
             } else if (currentView === 'glass') {
                 displayGlassView(filtered);
+            } else if (currentView === 'minimal') {
+                displayMinimalView(filtered);
             } else if (currentView === 'table') {
                 displayTableView(filtered);
             }
@@ -1398,6 +1511,53 @@
             attachEventListeners();
         }
 
+        function displayMinimalView(wines) {
+            var container = document.getElementById('wineContainer');
+
+            if (wines.length === 0) {
+                container.innerHTML = '<div class="loading">Nessun vino trovato</div>';
+                return;
+            }
+
+            wineRegistry = {};
+            var html = '<div class="wine-minimal-grid">';
+
+            for (var i = 0; i < wines.length; i++) {
+                var wine = wines[i];
+                var wineId = 'wine_' + currentTab + '_' + i;
+                var disabled = wine.residuo === 0 ? ' disabled' : '';
+                var qtyClass = wine.residuo > 0 ? '' : 'zero';
+
+                wineRegistry[wineId] = wine;
+
+                html += '<div class="wine-minimal-card">';
+
+                html += '<div class="minimal-header">';
+                html += '<div class="minimal-name">' + escapeHtml(wine.nome) + '</div>';
+                html += '<div class="minimal-year">' + escapeHtml(wine.anno) + '</div>';
+                html += '</div>';
+
+                html += '<div class="minimal-cantina">' + escapeHtml(wine.cantina) + '</div>';
+
+                html += '<div class="minimal-stats">';
+                html += '<div class="minimal-price">&euro;' + escapeHtml(wine.prezzo) + '</div>';
+                html += '<div class="minimal-qty">Residuo: <span class="minimal-qty-num ' + qtyClass + '">' + wine.residuo + '</span> / ' + wine.qta + '</div>';
+                html += '</div>';
+
+                html += '<div class="minimal-actions">';
+                html += '<button class="btn-add" data-wine-id="' + wineId + '" data-delta="1">+</button>';
+                html += '<button class="btn-remove" data-wine-id="' + wineId + '" data-delta="-1"' + disabled + '>-</button>';
+                html += '<button class="btn-view" data-wine-id="' + wineId + '">📋</button>';
+                html += '</div>';
+
+                html += '</div>';
+            }
+
+            html += '</div>';
+            container.innerHTML = html;
+            attachEventListeners();
+        }
+
         function displayTableView(wines) {
             var container = document.getElementById('wineContainer');
 
@@ -1412,12 +1572,9 @@
             html += '<th>Nome</th>';
             html += '<th>Anno</th>';
             html += '<th>Cantina</th>';
-            html += '<th>Vitigno</th>';
-            html += '<th>Shop</th>';
             html += '<th>Prezzo</th>';
             html += '<th>Qta</th>';
             html += '<th>Residuo</th>';
-            html += '<th>Prezzo Pieno</th>';
             html += '<th>Azioni</th>';
             html += '</tr></thead><tbody>';
 
@@ -1432,12 +1589,9 @@
                 html += '<td class="table-name">' + escapeHtml(wine.nome) + '</td>';
                 html += '<td>' + escapeHtml(wine.anno) + '</td>';
                 html += '<td>' + escapeHtml(wine.cantina) + '</td>';
-                html += '<td>' + escapeHtml(wine.vitigni) + '</td>';
-                html += '<td>' + escapeHtml(wine.shop) + '</td>';
                 html += '<td>&euro;' + escapeHtml(wine.prezzo) + '</td>';
                 html += '<td>' + wine.qta + '</td>';
                 html += '<td><strong>' + wine.residuo + '</strong></td>';
-                html += '<td>&euro;' + escapeHtml(wine.prezzopieno || wine.prezzo) + '</td>';
                 html += '<td><div class="table-actions">';
                 html += '<button class="btn-add" data-wine-id="' + wineId + '" data-delta="1">+</button>';
                 html += '<button class="btn-remove" data-wine-id="' + wineId + '" data-delta="-1"' + disabled + '>-</button>';
