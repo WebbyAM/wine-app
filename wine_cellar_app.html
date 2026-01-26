@@ -197,7 +197,6 @@
             padding: 15px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             transition: all 0.3s;
-            cursor: pointer;
             position: relative;
         }
 
@@ -448,7 +447,7 @@
         <div class="login-box">
             <h1>🍷 Wine Cellar Manager</h1>
             <p>Accedi con il tuo account Google per gestire la tua cantina</p>
-            <button onclick="handleAuth()" style="padding: 15px 30px; font-size: 16px;">
+            <button id="loginBtn" style="padding: 15px 30px; font-size: 16px;">
                 Accedi con Google
             </button>
         </div>
@@ -460,7 +459,7 @@
                 <h1>🍷 Wine Cellar Manager</h1>
                 <div class="user-info">
                     <span id="userName"></span>
-                    <button onclick="handleLogout()" style="padding: 8px 16px; font-size: 13px;">Esci</button>
+                    <button id="logoutBtn" style="padding: 8px 16px; font-size: 13px;">Esci</button>
                 </div>
             </header>
 
@@ -468,7 +467,7 @@
                 <div class="filters">
                     <div class="filter-group">
                         <label>Ordina per:</label>
-                        <select id="sortBy" onchange="applySortAndFilter()">
+                        <select id="sortBy">
                             <option value="residuo-desc-prezzo-asc">Residuo ↓ / Prezzo ↑</option>
                             <option value="nome-asc">Nome A→Z</option>
                             <option value="nome-desc">Nome Z→A</option>
@@ -480,20 +479,20 @@
                     </div>
 
                     <div class="toggle">
-                        <input type="checkbox" id="hideEmpty" onchange="applySortAndFilter()">
+                        <input type="checkbox" id="hideEmpty">
                         <label for="hideEmpty">Nascondi esauriti</label>
                     </div>
                 </div>
 
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="🔍 Cerca per nome, cantina, vitigno..." onkeyup="applySortAndFilter()">
+                    <input type="text" id="searchInput" placeholder="🔍 Cerca per nome, cantina, vitigno...">
                 </div>
             </div>
 
-            <div class="tabs">
-                <div class="tab active" onclick="switchTab('Rossi')">🍷 Rossi</div>
-                <div class="tab" onclick="switchTab('Bianchi')">🥂 Bianchi</div>
-                <div class="tab" onclick="switchTab('Frizzanti')">🍾 Frizzanti</div>
+            <div class="tabs" id="tabsContainer">
+                <div class="tab active" data-tab="Rossi">🍷 Rossi</div>
+                <div class="tab" data-tab="Bianchi">🥂 Bianchi</div>
+                <div class="tab" data-tab="Frizzanti">🍾 Frizzanti</div>
             </div>
 
             <div id="wineContainer" class="loading">Caricamento dati...</div>
@@ -505,8 +504,8 @@
             <div class="modal-header">
                 <h2 id="modalTitle">Dettagli Vino</h2>
                 <div style="display: flex; gap: 10px;">
-                    <button class="edit-icon" id="editBtn" onclick="toggleEdit()">✏️</button>
-                    <button class="modal-close" onclick="closeModal()">×</button>
+                    <button class="edit-icon" id="editBtn">✏️</button>
+                    <button class="modal-close" id="closeModalBtn">×</button>
                 </div>
             </div>
 
@@ -552,7 +551,7 @@
                     <textarea id="fieldNote" disabled></textarea>
                 </div>
 
-                <button type="button" class="save-btn hidden" id="saveBtn" onclick="saveWine()">
+                <button type="button" class="save-btn hidden" id="saveBtn">
                     💾 Salva Modifiche
                 </button>
             </form>
@@ -560,18 +559,34 @@
     </div>
 
     <script>
-        let wineData = { Rossi: [], Bianchi: [], Frizzanti: [] };
-        let currentTab = 'Rossi';
-        let accessToken = null;
-        let currentWine = null;
-        let isEditMode = false;
+        var wineData = { Rossi: [], Bianchi: [], Frizzanti: [] };
+        var currentTab = 'Rossi';
+        var accessToken = null;
+        var currentWine = null;
+        var isEditMode = false;
+        var wineRegistry = {};
 
-                const CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com';
+		const CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com';
 				const SPREADSHEET_ID = '1NF86I2BdDGmpOvas5t8-AyUcjLAGuNrg8y-3Et8n8Js';
 
+        document.getElementById('loginBtn').addEventListener('click', handleAuth);
+        document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+        document.getElementById('editBtn').addEventListener('click', toggleEdit);
+        document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+        document.getElementById('saveBtn').addEventListener('click', saveWine);
+        document.getElementById('sortBy').addEventListener('change', applySortAndFilter);
+        document.getElementById('hideEmpty').addEventListener('change', applySortAndFilter);
+        document.getElementById('searchInput').addEventListener('keyup', applySortAndFilter);
+
+        document.querySelectorAll('.tab').forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                switchTab(this.getAttribute('data-tab'));
+            });
+        });
+
         function handleAuth() {
-            const oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
-            const params = new URLSearchParams({
+            var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+            var params = new URLSearchParams({
                 client_id: CLIENT_ID,
                 redirect_uri: window.location.origin + window.location.pathname,
                 response_type: 'token',
@@ -589,9 +604,9 @@
         }
 
         window.onload = async function() {
-            const hash = window.location.hash;
+            var hash = window.location.hash;
             if (hash) {
-                const params = new URLSearchParams(hash.substring(1));
+                var params = new URLSearchParams(hash.substring(1));
                 if (params.get('access_token')) {
                     accessToken = params.get('access_token');
                     window.history.replaceState({}, document.title, window.location.pathname);
@@ -602,10 +617,10 @@
 
         async function initApp() {
             try {
-                const userInfo = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+                var response = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
                     headers: { 'Authorization': 'Bearer ' + accessToken }
                 });
-                const user = await userInfo.json();
+                var user = await response.json();
 
                 document.getElementById('userName').textContent = user.name || user.email;
                 document.getElementById('loginScreen').classList.add('hidden');
@@ -613,18 +628,19 @@
 
                 await loadData();
             } catch (error) {
-                alert('Errore autenticazione. Riprova.');
+                alert('Errore autenticazione');
                 handleLogout();
             }
         }
 
         async function loadData() {
             try {
-                const sheets = ['Rossi', 'Bianchi', 'Frizzanti'];
+                var sheets = ['Rossi', 'Bianchi', 'Frizzanti'];
 
-                for (let sheet of sheets) {
-                    const url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + sheet + '!A2:J1000';
-                    const response = await fetch(url, {
+                for (var i = 0; i < sheets.length; i++) {
+                    var sheet = sheets[i];
+                    var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + sheet + '!A2:J1000';
+                    var response = await fetch(url, {
                         headers: { 'Authorization': 'Bearer ' + accessToken }
                     });
 
@@ -632,7 +648,7 @@
                         throw new Error('Errore caricamento ' + sheet);
                     }
 
-                    const data = await response.json();
+                    var data = await response.json();
                     wineData[sheet] = parseWineData(data.values || [], sheet);
                 }
 
@@ -644,42 +660,54 @@
         }
 
         function parseWineData(rows, type) {
-            return rows.map((row, index) => ({
-                rowIndex: index + 2,
-                nome: row[0] || '',
-                anno: row[1] || '',
-                cantina: row[2] || '',
-                vitigni: row[3] || '',
-                shop: row[4] || '',
-                qta: parseInt(row[5]) || 0,
-                prezzo: row[6] || '',
-                residuo: parseInt(row[7]) || 0,
-                prezzopieno: row[8] || '',
-                note: row[9] || '',
-                type: type
-            })).filter(wine => wine.nome);
+            var result = [];
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                var wine = {
+                    rowIndex: i + 2,
+                    nome: row[0] || '',
+                    anno: row[1] || '',
+                    cantina: row[2] || '',
+                    vitigni: row[3] || '',
+                    shop: row[4] || '',
+                    qta: parseInt(row[5]) || 0,
+                    prezzo: row[6] || '',
+                    residuo: parseInt(row[7]) || 0,
+                    prezzopieno: row[8] || '',
+                    note: row[9] || '',
+                    type: type
+                };
+                if (wine.nome) {
+                    result.push(wine);
+                }
+            }
+            return result;
         }
 
         function applySortAndFilter() {
-            let wines = wineData[currentTab].slice();
+            var wines = wineData[currentTab].slice();
 
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const hideEmpty = document.getElementById('hideEmpty').checked;
+            var searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            var hideEmpty = document.getElementById('hideEmpty').checked;
 
-            wines = wines.filter(wine => {
-                const matchesSearch = 
-                    wine.nome.toLowerCase().includes(searchTerm) ||
-                    wine.cantina.toLowerCase().includes(searchTerm) ||
-                    wine.vitigni.toLowerCase().includes(searchTerm);
+            var filtered = [];
+            for (var i = 0; i < wines.length; i++) {
+                var wine = wines[i];
+                var matchesSearch = 
+                    wine.nome.toLowerCase().indexOf(searchTerm) >= 0 ||
+                    wine.cantina.toLowerCase().indexOf(searchTerm) >= 0 ||
+                    wine.vitigni.toLowerCase().indexOf(searchTerm) >= 0;
 
-                const matchesEmpty = !hideEmpty || wine.residuo > 0;
+                var matchesEmpty = !hideEmpty || wine.residuo > 0;
 
-                return matchesSearch && matchesEmpty;
-            });
+                if (matchesSearch && matchesEmpty) {
+                    filtered.push(wine);
+                }
+            }
 
-            const sortBy = document.getElementById('sortBy').value;
+            var sortBy = document.getElementById('sortBy').value;
 
-            wines.sort((a, b) => {
+            filtered.sort(function(a, b) {
                 if (sortBy === 'residuo-desc-prezzo-asc') {
                     if (b.residuo !== a.residuo) return b.residuo - a.residuo;
                     return parseFloat(a.prezzo || 0) - parseFloat(b.prezzo || 0);
@@ -699,44 +727,77 @@
                 return 0;
             });
 
-            displayWines(wines);
+            displayWines(filtered);
         }
 
         function displayWines(wines) {
-            const container = document.getElementById('wineContainer');
+            var container = document.getElementById('wineContainer');
 
             if (wines.length === 0) {
                 container.innerHTML = '<div class="loading">Nessun vino trovato</div>';
                 return;
             }
 
-            let html = '<div class="wine-grid">';
+            wineRegistry = {};
+            var html = '<div class="wine-grid">';
 
-            wines.forEach((wine, idx) => {
-                const qtyClass = wine.residuo > 0 ? 'qty-positive' : 'qty-zero';
-                const wineId = 'wine_' + currentTab + '_' + idx;
+            for (var i = 0; i < wines.length; i++) {
+                var wine = wines[i];
+                var qtyClass = wine.residuo > 0 ? 'qty-positive' : 'qty-zero';
+                var wineId = 'wine_' + currentTab + '_' + i;
+                var disabled = wine.residuo === 0 ? ' disabled' : '';
 
-                html += '<div class="wine-card" data-wine-id="' + wineId + '">';
-                html += '<div class="wine-name">' + wine.nome + '</div>';
-                html += '<div class="wine-info">' + wine.cantina + ' • ' + wine.anno + '</div>';
-                html += '<div class="wine-price">€' + wine.prezzo + '</div>';
+                wineRegistry[wineId] = wine;
+
+                html += '<div class="wine-card">';
+                html += '<div class="wine-name">' + escapeHtml(wine.nome) + '</div>';
+                html += '<div class="wine-info">' + escapeHtml(wine.cantina) + ' &bull; ' + escapeHtml(wine.anno) + '</div>';
+                html += '<div class="wine-price">&euro;' + escapeHtml(wine.prezzo) + '</div>';
                 html += '<div class="wine-quantity ' + qtyClass + '">Residuo: ' + wine.residuo + ' / ' + wine.qta + '</div>';
                 html += '<div class="wine-actions">';
-                html += '<button class="btn-add" onclick="quickUpdate('' + wineId + '', 1)">+</button>';
-                html += '<button class="btn-remove" onclick="quickUpdate('' + wineId + '', -1)" ' + (wine.residuo === 0 ? 'disabled' : '') + '>-</button>';
+                html += '<button class="btn-add" data-wine-id="' + wineId + '" data-delta="1">+</button>';
+                html += '<button class="btn-remove" data-wine-id="' + wineId + '" data-delta="-1"' + disabled + '>-</button>';
                 html += '</div>';
-                html += '<button class="btn-view" onclick="viewWine('' + wineId + '')">📋 Scheda Completa</button>';
+                html += '<button class="btn-view" data-wine-id="' + wineId + '">&#128203; Scheda Completa</button>';
                 html += '</div>';
-
-                window['wineData_' + wineId] = wine;
-            });
+            }
 
             html += '</div>';
             container.innerHTML = html;
+
+            attachEventListeners();
+        }
+
+        function attachEventListeners() {
+            document.querySelectorAll('.btn-add, .btn-remove').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var wineId = this.getAttribute('data-wine-id');
+                    var delta = parseInt(this.getAttribute('data-delta'));
+                    quickUpdate(wineId, delta);
+                });
+            });
+
+            document.querySelectorAll('.btn-view').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var wineId = this.getAttribute('data-wine-id');
+                    viewWine(wineId);
+                });
+            });
+        }
+
+        function escapeHtml(text) {
+            var map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
         }
 
         function viewWine(wineId) {
-            currentWine = window['wineData_' + wineId];
+            currentWine = wineRegistry[wineId];
             if (!currentWine) return;
 
             isEditMode = false;
@@ -769,22 +830,26 @@
         }
 
         function setEditMode(enabled) {
-            const fields = ['fieldNome', 'fieldAnno', 'fieldCantina', 'fieldVitigni', 
+            var fields = ['fieldNome', 'fieldAnno', 'fieldCantina', 'fieldVitigni', 
                            'fieldShop', 'fieldQta', 'fieldPrezzo', 'fieldResiduo', 
                            'fieldPrezzopieno', 'fieldNote'];
 
-            fields.forEach(function(id) {
-                document.getElementById(id).disabled = !enabled;
-            });
+            for (var i = 0; i < fields.length; i++) {
+                document.getElementById(fields[i]).disabled = !enabled;
+            }
 
             document.getElementById('editBtn').textContent = enabled ? '❌' : '✏️';
-            document.getElementById('saveBtn').classList.toggle('hidden', !enabled);
+            if (enabled) {
+                document.getElementById('saveBtn').classList.remove('hidden');
+            } else {
+                document.getElementById('saveBtn').classList.add('hidden');
+            }
         }
 
         async function saveWine() {
             if (!currentWine) return;
 
-            const updates = [
+            var updates = [
                 document.getElementById('fieldNome').value,
                 document.getElementById('fieldAnno').value,
                 document.getElementById('fieldCantina').value,
@@ -798,10 +863,10 @@
             ];
 
             try {
-                const range = currentWine.type + '!A' + currentWine.rowIndex + ':J' + currentWine.rowIndex;
-                const url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + '?valueInputOption=RAW';
+                var range = currentWine.type + '!A' + currentWine.rowIndex + ':J' + currentWine.rowIndex;
+                var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + '?valueInputOption=RAW';
 
-                const response = await fetch(url, {
+                var response = await fetch(url, {
                     method: 'PUT',
                     headers: {
                         'Authorization': 'Bearer ' + accessToken,
@@ -812,7 +877,7 @@
 
                 if (!response.ok) throw new Error('Errore salvataggio');
 
-                alert('✓ Modifiche salvate!');
+                alert('Modifiche salvate!');
                 closeModal();
                 await loadData();
 
@@ -822,15 +887,15 @@
         }
 
         async function quickUpdate(wineId, delta) {
-            const wine = window['wineData_' + wineId];
+            var wine = wineRegistry[wineId];
             if (!wine) return;
 
-            const newQty = Math.max(0, wine.residuo + delta);
-            const range = wine.type + '!H' + wine.rowIndex;
-            const url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + '?valueInputOption=RAW';
+            var newQty = Math.max(0, wine.residuo + delta);
+            var range = wine.type + '!H' + wine.rowIndex;
+            var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + '?valueInputOption=RAW';
 
             try {
-                const response = await fetch(url, {
+                var response = await fetch(url, {
                     method: 'PUT',
                     headers: {
                         'Authorization': 'Bearer ' + accessToken,
@@ -854,7 +919,7 @@
             document.querySelectorAll('.tab').forEach(function(t) {
                 t.classList.remove('active');
             });
-            event.target.classList.add('active');
+            document.querySelector('.tab[data-tab="' + tab + '"]').classList.add('active');
             applySortAndFilter();
         }
     </script>
