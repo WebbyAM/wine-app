@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Wine Cellar">
@@ -18,13 +19,12 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            padding: 20px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
         }
 
         header {
@@ -267,57 +267,35 @@
             <div class="tab" onclick="switchTab('Frizzanti')">🍾 Frizzanti</div>
         </div>
 
-        <div id="wineContainer" class="loading">Carica i dati per iniziare</div>
+        <div id="wineContainer" class="loading">Inserisci API Key e clicca "Carica Dati"</div>
     </div>
 
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
         let wineData = { Rossi: [], Bianchi: [], Frizzanti: [] };
         let currentTab = 'Rossi';
         let accessToken = null;
-        const CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com'; // DA CONFIGURARE
-
-        // Inizializza Google Sign-In
-        function initGoogleAuth() {
-            google.accounts.id.initialize({
-                client_id: CLIENT_ID,
-                callback: handleCredentialResponse
-            });
-        }
+		
+		const CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com'; 
 
         function handleAuth() {
             if (accessToken) {
-                // Logout
                 accessToken = null;
                 document.getElementById('authStatus').textContent = 'Non autenticato';
                 document.getElementById('authBtn').textContent = 'Accedi con Google';
             } else {
-                // Login con OAuth 2.0 per scrittura
                 const oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
-                const params = {
+                const params = new URLSearchParams({
                     client_id: CLIENT_ID,
                     redirect_uri: window.location.origin + window.location.pathname,
                     response_type: 'token',
                     scope: 'https://www.googleapis.com/auth/spreadsheets',
                     include_granted_scopes: 'true',
-                    state: 'pass-through-value'
-                };
-                const form = document.createElement('form');
-                form.setAttribute('method', 'GET');
-                form.setAttribute('action', oauth2Endpoint);
-                for (let p in params) {
-                    const input = document.createElement('input');
-                    input.setAttribute('type', 'hidden');
-                    input.setAttribute('name', p);
-                    input.setAttribute('value', params[p]);
-                    form.appendChild(input);
-                }
-                document.body.appendChild(form);
-                form.submit();
+                    state: 'wine-app'
+                });
+                window.location.href = oauth2Endpoint + '?' + params.toString();
             }
         }
 
-        // Controlla se c'è token nella URL (dopo redirect OAuth)
         window.onload = function() {
             const hash = window.location.hash;
             if (hash) {
@@ -336,7 +314,7 @@
             const spreadsheetId = document.getElementById('spreadsheetId').value;
 
             if (!apiKey) {
-                showError('Inserisci l'API Key prima di caricare i dati');
+                showError('Inserisci l API Key prima di caricare i dati');
                 return;
             }
 
@@ -351,7 +329,8 @@
                     const response = await fetch(url);
 
                     if (!response.ok) {
-                        throw new Error(`Errore nel caricamento del foglio ${sheet}`);
+                        const errorData = await response.json();
+                        throw new Error(`Errore nel caricamento del foglio ${sheet}: ${errorData.error.message}`);
                     }
 
                     const data = await response.json();
@@ -361,6 +340,7 @@
                 displayWines();
             } catch (error) {
                 showError('Errore: ' + error.message);
+                console.error('Errore completo:', error);
             }
         }
 
@@ -394,8 +374,10 @@
 
             wines.forEach(wine => {
                 const qtyClass = wine.residuo > 0 ? 'qty-positive' : 'qty-zero';
+                const wineJson = JSON.stringify(wine).replace(/'/g, '&apos;').replace(/"/g, '&quot;');
+
                 html += `
-                    <div class="wine-card" data-wine='${JSON.stringify(wine).replace(/'/g, "&#39;")}'>
+                    <div class="wine-card">
                         <div class="wine-name">${wine.nome}</div>
                         <div class="wine-details"><strong>Cantina:</strong> ${wine.cantina}</div>
                         <div class="wine-details"><strong>Anno:</strong> ${wine.anno}</div>
@@ -406,8 +388,8 @@
                             Residuo: ${wine.residuo} / ${wine.qta}
                         </div>
                         <div class="wine-actions">
-                            <button class="btn-add" onclick='updateQuantity(${JSON.stringify(wine)}, 1)'>+ Aggiungi</button>
-                            <button class="btn-remove" onclick='updateQuantity(${JSON.stringify(wine)}, -1)' ${wine.residuo === 0 ? 'disabled' : ''}>- Rimuovi</button>
+                            <button class="btn-add" onclick='updateQuantity(${wineJson}, 1)'>+ Aggiungi</button>
+                            <button class="btn-remove" onclick='updateQuantity(${wineJson}, -1)' ${wine.residuo === 0 ? 'disabled' : ''}>- Rimuovi</button>
                         </div>
                     </div>
                 `;
@@ -443,10 +425,9 @@
                 );
 
                 if (!response.ok) {
-                    throw new Error('Errore nell'aggiornamento');
+                    throw new Error('Errore nell aggiornamento');
                 }
 
-                // Aggiorna dati locali
                 wine.residuo = newQty;
                 displayWines();
 
