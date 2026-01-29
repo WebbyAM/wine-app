@@ -8,6 +8,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Wine Cellar">
     <title>Wine Cellar - Gestione Cantina</title>
+
+    <!-- Favicon SVG -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%238B0000' d='M50 10 L30 40 L30 70 Q30 85 50 90 Q70 85 70 70 L70 40 Z'/%3E%3Cpath fill='%23DC143C' d='M30 40 L70 40 L70 50 Q70 60 50 65 Q30 60 30 50 Z'/%3E%3Cellipse cx='50' cy='45' rx='15' ry='8' fill='%23fff' opacity='0.3'/%3E%3C/svg%3E">
+
+    <!-- Apple Touch Icon per iPhone -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%238B0000' rx='40'/%3E%3Cpath fill='%23DC143C' d='M90 30 L55 80 L55 130 Q55 150 90 160 Q125 150 125 130 L125 80 Z'/%3E%3Cpath fill='%23fff' d='M55 80 L125 80 L125 95 Q125 110 90 117 Q55 110 55 95 Z' opacity='0.9'/%3E%3Cellipse cx='90' cy='87' rx='25' ry='12' fill='%23fff' opacity='0.4'/%3E%3Ctext x='90' y='165' font-family='Arial,sans-serif' font-size='16' fill='%23fff' text-anchor='middle' font-weight='bold'%3EWINE%3C/text%3E%3C/svg%3E">
+
     <style>
         * {
             margin: 0;
@@ -1070,7 +1077,7 @@
         var stats = {};
         var isNewWine = false;
 
-		var CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com';
+        var CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com';
         var SPREADSHEET_ID = '1NF86I2BdDGmpOvas5t8-AyUcjLAGuNrg8y-3Et8n8Js';
 
         var wineColors = [
@@ -1082,29 +1089,33 @@
             'linear-gradient(135deg, #800020 0%, #C71585 100%)'
         ];
 
-        document.getElementById('loginBtn').addEventListener('click', handleAuth);
-        document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-        document.getElementById('editBtn').addEventListener('click', toggleEdit);
-        document.getElementById('closeModalBtn').addEventListener('click', closeModal);
-        document.getElementById('saveBtn').addEventListener('click', saveWine);
-        document.getElementById('addWineBtn').addEventListener('click', addNewWine);
-        document.getElementById('sortBy').addEventListener('change', applySortAndFilter);
-        document.getElementById('hideEmpty').addEventListener('change', applySortAndFilter);
-        document.getElementById('searchInput').addEventListener('keyup', applySortAndFilter);
+        // FIX: Aggiungi event listeners DOPO il caricamento del DOM
+        function initEventListeners() {
+            document.getElementById('loginBtn').addEventListener('click', handleAuth);
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+            document.getElementById('editBtn').addEventListener('click', toggleEdit);
+            document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+            document.getElementById('saveBtn').addEventListener('click', saveWine);
+            document.getElementById('addWineBtn').addEventListener('click', addNewWine);
+            document.getElementById('sortBy').addEventListener('change', applySortAndFilter);
+            document.getElementById('hideEmpty').addEventListener('change', applySortAndFilter);
+            document.getElementById('searchInput').addEventListener('keyup', applySortAndFilter);
 
-        document.querySelectorAll('.tab').forEach(function(tab) {
-            tab.addEventListener('click', function() {
-                switchTab(this.getAttribute('data-tab'));
+            document.querySelectorAll('.tab').forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    switchTab(this.getAttribute('data-tab'));
+                });
             });
-        });
 
-        document.querySelectorAll('.view-btn').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                switchView(this.getAttribute('data-view'));
+            document.querySelectorAll('.view-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    switchView(this.getAttribute('data-view'));
+                });
             });
-        });
+        }
 
         function handleAuth() {
+            console.log('handleAuth called');
             var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
             var params = new URLSearchParams({
                 client_id: CLIENT_ID,
@@ -1114,7 +1125,9 @@
                 include_granted_scopes: 'true',
                 state: 'wine-app'
             });
-            window.location.href = oauth2Endpoint + '?' + params.toString();
+            var authUrl = oauth2Endpoint + '?' + params.toString();
+            console.log('Redirecting to:', authUrl);
+            window.location.href = authUrl;
         }
 
         function handleLogout() {
@@ -1123,7 +1136,10 @@
             document.getElementById('appScreen').classList.add('hidden');
         }
 
-        window.onload = async function() {
+        window.addEventListener('load', async function() {
+            console.log('Page loaded');
+            initEventListeners();
+
             var hash = window.location.hash;
             if (hash) {
                 var params = new URLSearchParams(hash.substring(1));
@@ -1133,7 +1149,7 @@
                     await initApp();
                 }
             }
-        };
+        });
 
         async function initApp() {
             try {
@@ -1528,7 +1544,6 @@
         }
 
         function attachEventListeners() {
-            // Click su card/row per aprire scheda
             document.querySelectorAll('.wine-minimal-card, .wine-premium-card, .wine-table tbody tr').forEach(function(el) {
                 el.addEventListener('click', function() {
                     var wineId = this.getAttribute('data-wine-id');
@@ -1536,7 +1551,6 @@
                 });
             });
 
-            // Pulsanti azioni
             document.querySelectorAll('.btn-add, .btn-remove').forEach(function(btn) {
                 btn.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -1652,9 +1666,7 @@
             var wine = wineRegistry[wineId];
             if (!wine) return;
 
-            if (!confirm('ATTENZIONE: Eliminare definitivamente il vino "' + wine.nome + '"?
-
-Questa azione NON può essere annullata!')) return;
+            if (!confirm('ATTENZIONE: Eliminare definitivamente il vino "' + wine.nome + '"?\n\nQuesta azione NON può essere annullata!')) return;
 
             try {
                 var range = wine.type + '!A' + wine.rowIndex + ':J' + wine.rowIndex;
