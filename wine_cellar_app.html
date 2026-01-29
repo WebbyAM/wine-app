@@ -238,6 +238,7 @@
             padding: 10px;
             border-radius: 10px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .view-btn {
@@ -256,205 +257,21 @@
             border-color: #1e3c72;
         }
 
-        .wine-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 12px;
-        }
-
-        .wine-card {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .wine-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
-        .wine-name {
-            font-size: 16px;
-            font-weight: bold;
-            color: #1e3c72;
-            margin-bottom: 6px;
-            line-height: 1.3;
-        }
-
-        .wine-info {
-            font-size: 13px;
-            color: #666;
-            margin-bottom: 4px;
-        }
-
-        .wine-price {
-            font-size: 15px;
-            font-weight: bold;
-            color: #2a5298;
-            margin: 8px 0;
-        }
-
-        .wine-quantity {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 13px;
-            margin: 8px 0;
-        }
-
-        .qty-positive {
+        .add-wine-btn {
             background: #10b981;
             color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: auto;
         }
 
-        .qty-zero {
-            background: #9e9e9e;
-            color: white;
-        }
-
-        .wine-actions {
-            margin-top: 10px;
-            display: flex;
-            gap: 8px;
-        }
-
-        .wine-actions button {
-            flex: 1;
-            padding: 8px;
-            font-size: 13px;
-        }
-
-        .btn-add {
-            background: #10b981;
-        }
-
-        .btn-add:hover {
+        .add-wine-btn:hover {
             background: #059669;
         }
 
-        .btn-remove {
-            background: #ef4444;
-        }
-
-        .btn-remove:hover {
-            background: #dc2626;
-        }
-
-        .btn-view {
-            background: #6366f1;
-            margin-top: 8px;
-            width: 100%;
-        }
-
-        .btn-view:hover {
-            background: #4f46e5;
-        }
-
-        .wine-kanban {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
-        }
-
-        .wine-kanban-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .wine-kanban-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        }
-
-        .wine-kanban-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-
-        .kanban-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .kanban-name {
-            font-size: 20px;
-            font-weight: bold;
-            flex: 1;
-        }
-
-        .kanban-year {
-            background: rgba(255,255,255,0.2);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-
-        .kanban-info {
-            margin: 8px 0;
-            font-size: 14px;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
-        }
-
-        .kanban-price {
-            font-size: 28px;
-            font-weight: bold;
-            margin: 15px 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .kanban-qty {
-            display: inline-block;
-            background: rgba(255,255,255,0.25);
-            padding: 8px 16px;
-            border-radius: 25px;
-            font-weight: bold;
-            margin: 10px 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .kanban-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .kanban-actions button {
-            flex: 1;
-            background: rgba(255,255,255,0.9);
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        .kanban-actions button:hover {
-            background: white;
-        }
-
-        /* TABELLA MIGLIORATA - Righe alternate e font scuro */
+        /* TABELLA */
         .wine-table-container {
             background: white;
             border-radius: 12px;
@@ -488,6 +305,7 @@
         .wine-table tbody tr {
             border-bottom: 1px solid #e0e0e0;
             transition: all 0.2s;
+            cursor: pointer;
         }
 
         .wine-table tbody tr:nth-child(even) {
@@ -520,169 +338,54 @@
         }
 
         .table-actions button {
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-
-        /* GLASS MORPHISM VIEW */
-        .wine-glass-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        .wine-glass-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 25px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .wine-glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .wine-glass-card:hover::before {
-            opacity: 1;
-        }
-
-        .wine-glass-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 50px 0 rgba(31, 38, 135, 0.5);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .glass-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .glass-name {
+            padding: 6px 10px;
             font-size: 18px;
-            font-weight: bold;
-            color: white;
-            flex: 1;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            background: transparent;
+            border: 1px solid #d0d0d0;
+            color: #555;
         }
 
-        .glass-year {
-            background: rgba(255,255,255,0.2);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            color: white;
-            font-weight: 600;
-            backdrop-filter: blur(5px);
+        .table-actions .btn-add {
+            border-color: #10b981;
+            color: #10b981;
         }
 
-        .glass-divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            margin: 15px 0;
-        }
-
-        .glass-info-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            color: rgba(255,255,255,0.9);
-            font-size: 14px;
-        }
-
-        .glass-label {
-            color: rgba(255,255,255,0.7);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .glass-value {
-            font-weight: 600;
+        .table-actions .btn-add:hover {
+            background: #10b981;
             color: white;
         }
 
-        .glass-price-box {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(5px);
-            border-radius: 15px;
-            padding: 15px;
-            margin: 15px 0;
-            text-align: center;
+        .table-actions .btn-remove {
+            border-color: #ef4444;
+            color: #ef4444;
         }
 
-        .glass-price {
-            font-size: 32px;
-            font-weight: bold;
+        .table-actions .btn-remove:hover {
+            background: #ef4444;
             color: white;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        .glass-qty-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.8), rgba(5, 150, 105, 0.8));
-            padding: 8px 18px;
-            border-radius: 25px;
-            font-weight: bold;
+        .table-actions .btn-duplicate {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .table-actions .btn-duplicate:hover {
+            background: #3b82f6;
             color: white;
-            font-size: 14px;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
         }
 
-        .glass-qty-badge.zero {
-            background: linear-gradient(135deg, rgba(158, 158, 158, 0.8), rgba(117, 117, 117, 0.8));
-            box-shadow: 0 4px 15px rgba(158, 158, 158, 0.3);
+        .table-actions .btn-delete {
+            border-color: #dc2626;
+            color: #dc2626;
         }
 
-        .glass-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .glass-actions button {
-            flex: 1;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.3);
+        .table-actions .btn-delete:hover {
+            background: #dc2626;
             color: white;
-            font-weight: 600;
-            padding: 10px;
-            border-radius: 10px;
         }
 
-        .glass-actions button:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-        }
-
-        .glass-actions .btn-view {
-            background: rgba(99, 102, 241, 0.3);
-            border-color: rgba(99, 102, 241, 0.5);
-        }
-
-        .glass-actions .btn-view:hover {
-            background: rgba(99, 102, 241, 0.5);
-        }
-
-        /* MINIMALIST LIGHT VIEW - PULSANTI MINIMAL */
+        /* MINIMAL VIEW */
         .wine-minimal-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -697,6 +400,7 @@
             transition: all 0.2s ease;
             border-left: 3px solid #2a5298;
             position: relative;
+            cursor: pointer;
         }
 
         .wine-minimal-card:hover {
@@ -772,8 +476,8 @@
 
         .minimal-actions button {
             flex: 1;
-            padding: 6px;
-            font-size: 11px;
+            padding: 8px;
+            font-size: 18px;
             font-weight: 500;
             border-radius: 4px;
             background: transparent;
@@ -785,7 +489,6 @@
         .minimal-actions .btn-add {
             border-color: #10b981;
             color: #10b981;
-            background: transparent;
         }
 
         .minimal-actions .btn-add:hover {
@@ -796,7 +499,6 @@
         .minimal-actions .btn-remove {
             border-color: #ef4444;
             color: #ef4444;
-            background: transparent;
         }
 
         .minimal-actions .btn-remove:hover {
@@ -804,16 +506,249 @@
             color: white;
         }
 
-        .minimal-actions .btn-view {
-            border-color: #6366f1;
-            color: #6366f1;
-            background: transparent;
-            margin: 0;
-            width: auto;
+        .minimal-actions .btn-duplicate {
+            border-color: #3b82f6;
+            color: #3b82f6;
         }
 
-        .minimal-actions .btn-view:hover {
-            background: #6366f1;
+        .minimal-actions .btn-duplicate:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .minimal-actions .btn-delete {
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+
+        .minimal-actions .btn-delete:hover {
+            background: #dc2626;
+            color: white;
+        }
+
+        /* PREMIUM VIEW - Modern Wine Portal Style */
+        .wine-premium-header {
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wine-premium-header::before {
+            content: '🍷';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            right: -30px;
+            top: -50px;
+        }
+
+        .premium-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .premium-header-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .premium-header-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .wine-premium-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .wine-premium-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .wine-premium-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+        }
+
+        .premium-card-image {
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-card-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+        }
+
+        .premium-card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.95);
+            color: #1e3c72;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .premium-card-body {
+            padding: 20px;
+        }
+
+        .premium-card-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .premium-card-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .premium-card-cantina {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .premium-card-anno {
+            font-size: 13px;
+            background: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 12px;
+            color: #555;
+        }
+
+        .premium-card-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .premium-detail-item {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .premium-detail-label {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .premium-detail-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2a5298;
+        }
+
+        .premium-card-stock {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .premium-card-stock.zero {
+            background: linear-gradient(135deg, #9e9e9e, #757575);
+        }
+
+        .premium-card-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .premium-card-actions button {
+            flex: 1;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 6px;
+            background: transparent;
+            border: 1.5px solid #d0d0d0;
+            color: #555;
+            transition: all 0.2s;
+        }
+
+        .premium-card-actions .btn-add {
+            border-color: #10b981;
+            color: #10b981;
+        }
+
+        .premium-card-actions .btn-add:hover {
+            background: #10b981;
+            color: white;
+        }
+
+        .premium-card-actions .btn-remove {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .premium-card-actions .btn-remove:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .premium-card-actions .btn-duplicate {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .premium-card-actions .btn-duplicate:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .premium-card-actions .btn-delete {
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+
+        .premium-card-actions .btn-delete:hover {
+            background: #dc2626;
             color: white;
         }
 
@@ -953,7 +888,7 @@
         }
 
         @media (max-width: 768px) {
-            .wine-grid, .wine-kanban, .wine-glass-grid, .wine-minimal-grid {
+            .wine-minimal-grid, .wine-premium-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -981,6 +916,10 @@
             .wine-table th,
             .wine-table td {
                 padding: 8px 6px;
+            }
+
+            .premium-header-title {
+                font-size: 24px;
             }
         }
     </style>
@@ -1023,13 +962,18 @@
                         <div class="filter-group">
                             <label>Ordina per:</label>
                             <select id="sortBy">
-                                <option value="residuo-desc-prezzo-asc">Residuo ↓ / Prezzo ↑</option>
+                                <option value="residuo-desc-prezzopieno-desc">Residuo ↓ / Prezzo Pieno ↓</option>
                                 <option value="nome-asc">Nome A→Z</option>
                                 <option value="nome-desc">Nome Z→A</option>
+                                <option value="anno-asc">Anno ↑</option>
+                                <option value="anno-desc">Anno ↓</option>
+                                <option value="cantina-asc">Cantina A→Z</option>
+                                <option value="cantina-desc">Cantina Z→A</option>
                                 <option value="prezzo-asc">Prezzo ↑</option>
                                 <option value="prezzo-desc">Prezzo ↓</option>
                                 <option value="residuo-asc">Residuo ↑</option>
                                 <option value="residuo-desc">Residuo ↓</option>
+                                <option value="residuo-desc-prezzo-asc">Residuo ↓ / Prezzo ↑</option>
                             </select>
                         </div>
 
@@ -1045,11 +989,10 @@
                 </div>
 
                 <div class="view-selector">
-                    <div class="view-btn active" data-view="cards">📇 Schede</div>
-                    <div class="view-btn" data-view="kanban">🎨 Metro</div>
-                    <div class="view-btn" data-view="glass">✨ Glass</div>
+                    <div class="view-btn active" data-view="premium">✨ Premium</div>
                     <div class="view-btn" data-view="minimal">⚡ Minimal</div>
                     <div class="view-btn" data-view="table">📋 Tabella</div>
+                    <button class="add-wine-btn" id="addWineBtn">➕ Aggiungi Vino</button>
                 </div>
 
                 <div id="wineContainer" class="loading">Caricamento dati...</div>
@@ -1119,22 +1062,32 @@
     <script>
         var wineData = { Rossi: [], Bianchi: [], Frizzanti: [] };
         var currentTab = 'Dashboard';
-        var currentView = 'cards';
+        var currentView = 'premium';
         var accessToken = null;
         var currentWine = null;
         var isEditMode = false;
         var wineRegistry = {};
         var stats = {};
+        var isNewWine = false;
 
-        
 		var CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com';
         var SPREADSHEET_ID = '1NF86I2BdDGmpOvas5t8-AyUcjLAGuNrg8y-3Et8n8Js';
+
+        var wineColors = [
+            'linear-gradient(135deg, #8B0000 0%, #DC143C 100%)',
+            'linear-gradient(135deg, #4B0082 0%, #9370DB 100%)',
+            'linear-gradient(135deg, #006400 0%, #228B22 100%)',
+            'linear-gradient(135deg, #8B4513 0%, #D2691E 100%)',
+            'linear-gradient(135deg, #2F4F4F 0%, #696969 100%)',
+            'linear-gradient(135deg, #800020 0%, #C71585 100%)'
+        ];
 
         document.getElementById('loginBtn').addEventListener('click', handleAuth);
         document.getElementById('logoutBtn').addEventListener('click', handleLogout);
         document.getElementById('editBtn').addEventListener('click', toggleEdit);
         document.getElementById('closeModalBtn').addEventListener('click', closeModal);
         document.getElementById('saveBtn').addEventListener('click', saveWine);
+        document.getElementById('addWineBtn').addEventListener('click', addNewWine);
         document.getElementById('sortBy').addEventListener('change', applySortAndFilter);
         document.getElementById('hideEmpty').addEventListener('change', applySortAndFilter);
         document.getElementById('searchInput').addEventListener('keyup', applySortAndFilter);
@@ -1307,8 +1260,8 @@
                 html += '<div class="stat-value">' + s.qta + ' bot.</div>';
                 html += '<div class="stat-sublabel">Residuo: ' + s.residuo + ' bot.</div>';
                 html += '<hr style="margin: 15px 0; border: none; border-top: 1px solid #e0e0e0;">';
-                html += '<div class="wine-info">💰 Costo Effettivo: <strong>€' + s.costoEffettivo.toFixed(2) + '</strong></div>';
-                html += '<div class="wine-info">💎 Costo Pieno: <strong>€' + s.costoPieno.toFixed(2) + '</strong></div>';
+                html += '<div style="font-size: 13px; color: #666; margin: 4px 0;">💰 Costo Effettivo: <strong>€' + s.costoEffettivo.toFixed(2) + '</strong></div>';
+                html += '<div style="font-size: 13px; color: #666; margin: 4px 0;">💎 Costo Pieno: <strong>€' + s.costoPieno.toFixed(2) + '</strong></div>';
                 html += '</div>';
             }
 
@@ -1369,13 +1322,24 @@
             var sortBy = document.getElementById('sortBy').value;
 
             filtered.sort(function(a, b) {
-                if (sortBy === 'residuo-desc-prezzo-asc') {
+                if (sortBy === 'residuo-desc-prezzopieno-desc') {
+                    if (b.residuo !== a.residuo) return b.residuo - a.residuo;
+                    return parseFloat(b.prezzopieno || b.prezzo || 0) - parseFloat(a.prezzopieno || a.prezzo || 0);
+                } else if (sortBy === 'residuo-desc-prezzo-asc') {
                     if (b.residuo !== a.residuo) return b.residuo - a.residuo;
                     return parseFloat(a.prezzo || 0) - parseFloat(b.prezzo || 0);
                 } else if (sortBy === 'nome-asc') {
                     return a.nome.localeCompare(b.nome);
                 } else if (sortBy === 'nome-desc') {
                     return b.nome.localeCompare(a.nome);
+                } else if (sortBy === 'anno-asc') {
+                    return a.anno.localeCompare(b.anno);
+                } else if (sortBy === 'anno-desc') {
+                    return b.anno.localeCompare(a.anno);
+                } else if (sortBy === 'cantina-asc') {
+                    return a.cantina.localeCompare(b.cantina);
+                } else if (sortBy === 'cantina-desc') {
+                    return b.cantina.localeCompare(a.cantina);
                 } else if (sortBy === 'prezzo-asc') {
                     return parseFloat(a.prezzo || 0) - parseFloat(b.prezzo || 0);
                 } else if (sortBy === 'prezzo-desc') {
@@ -1388,163 +1352,13 @@
                 return 0;
             });
 
-            if (currentView === 'cards') {
-                displayCardsView(filtered);
-            } else if (currentView === 'kanban') {
-                displayKanbanView(filtered);
-            } else if (currentView === 'glass') {
-                displayGlassView(filtered);
-            } else if (currentView === 'minimal') {
+            if (currentView === 'minimal') {
                 displayMinimalView(filtered);
             } else if (currentView === 'table') {
                 displayTableView(filtered);
+            } else if (currentView === 'premium') {
+                displayPremiumView(filtered);
             }
-        }
-
-        function displayCardsView(wines) {
-            var container = document.getElementById('wineContainer');
-
-            if (wines.length === 0) {
-                container.innerHTML = '<div class="loading">Nessun vino trovato</div>';
-                return;
-            }
-
-            wineRegistry = {};
-            var html = '<div class="wine-grid">';
-
-            for (var i = 0; i < wines.length; i++) {
-                var wine = wines[i];
-                var qtyClass = wine.residuo > 0 ? 'qty-positive' : 'qty-zero';
-                var wineId = 'wine_' + currentTab + '_' + i;
-                var disabled = wine.residuo === 0 ? ' disabled' : '';
-
-                wineRegistry[wineId] = wine;
-
-                html += '<div class="wine-card">';
-                html += '<div class="wine-name">' + escapeHtml(wine.nome) + '</div>';
-                html += '<div class="wine-info">' + escapeHtml(wine.cantina) + ' &bull; ' + escapeHtml(wine.anno) + '</div>';
-                html += '<div class="wine-price">&euro;' + escapeHtml(wine.prezzo) + '</div>';
-                html += '<div class="wine-quantity ' + qtyClass + '">Residuo: ' + wine.residuo + ' / ' + wine.qta + '</div>';
-                html += '<div class="wine-actions">';
-                html += '<button class="btn-add" data-wine-id="' + wineId + '" data-delta="1">+</button>';
-                html += '<button class="btn-remove" data-wine-id="' + wineId + '" data-delta="-1"' + disabled + '>-</button>';
-                html += '</div>';
-                html += '<button class="btn-view" data-wine-id="' + wineId + '">&#128203; Scheda Completa</button>';
-                html += '</div>';
-            }
-
-            html += '</div>';
-            container.innerHTML = html;
-            attachEventListeners();
-        }
-
-        function displayKanbanView(wines) {
-            var container = document.getElementById('wineContainer');
-
-            if (wines.length === 0) {
-                container.innerHTML = '<div class="loading">Nessun vino trovato</div>';
-                return;
-            }
-
-            wineRegistry = {};
-            var html = '<div class="wine-kanban">';
-
-            var colors = [
-                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-                'linear-gradient(135deg, #30cfd0 0%, #330867 100%)'
-            ];
-
-            for (var i = 0; i < wines.length; i++) {
-                var wine = wines[i];
-                var wineId = 'wine_' + currentTab + '_' + i;
-                var disabled = wine.residuo === 0 ? ' disabled' : '';
-                var gradient = colors[i % colors.length];
-
-                wineRegistry[wineId] = wine;
-
-                html += '<div class="wine-kanban-card" style="background: ' + gradient + ';">';
-                html += '<div class="kanban-header">';
-                html += '<div class="kanban-name">' + escapeHtml(wine.nome) + '</div>';
-                html += '<div class="kanban-year">' + escapeHtml(wine.anno) + '</div>';
-                html += '</div>';
-                html += '<div class="kanban-info">🏛️ ' + escapeHtml(wine.cantina) + '</div>';
-                html += '<div class="kanban-info">🍇 ' + escapeHtml(wine.vitigni) + '</div>';
-                html += '<div class="kanban-price">&euro;' + escapeHtml(wine.prezzo) + '</div>';
-                html += '<div class="kanban-qty">📦 ' + wine.residuo + ' / ' + wine.qta + ' bottiglie</div>';
-                html += '<div class="kanban-actions">';
-                html += '<button data-wine-id="' + wineId + '" data-delta="1">+</button>';
-                html += '<button data-wine-id="' + wineId + '" data-delta="-1"' + disabled + '>-</button>';
-                html += '<button data-wine-id="' + wineId + '" class="btn-view-kanban">📋</button>';
-                html += '</div>';
-                html += '</div>';
-            }
-
-            html += '</div>';
-            container.innerHTML = html;
-            attachEventListeners();
-        }
-
-        function displayGlassView(wines) {
-            var container = document.getElementById('wineContainer');
-
-            if (wines.length === 0) {
-                container.innerHTML = '<div class="loading">Nessun vino trovato</div>';
-                return;
-            }
-
-            wineRegistry = {};
-            var html = '<div class="wine-glass-grid">';
-
-            for (var i = 0; i < wines.length; i++) {
-                var wine = wines[i];
-                var wineId = 'wine_' + currentTab + '_' + i;
-                var disabled = wine.residuo === 0 ? ' disabled' : '';
-                var qtyClass = wine.residuo > 0 ? '' : 'zero';
-
-                wineRegistry[wineId] = wine;
-
-                html += '<div class="wine-glass-card">';
-                html += '<div class="glass-header">';
-                html += '<div class="glass-name">' + escapeHtml(wine.nome) + '</div>';
-                html += '<div class="glass-year">' + escapeHtml(wine.anno) + '</div>';
-                html += '</div>';
-
-                html += '<div class="glass-divider"></div>';
-
-                html += '<div class="glass-info-row">';
-                html += '<span class="glass-label">Cantina</span>';
-                html += '<span class="glass-value">' + escapeHtml(wine.cantina) + '</span>';
-                html += '</div>';
-
-                html += '<div class="glass-info-row">';
-                html += '<span class="glass-label">Vitigno</span>';
-                html += '<span class="glass-value">' + escapeHtml(wine.vitigni) + '</span>';
-                html += '</div>';
-
-                html += '<div class="glass-price-box">';
-                html += '<div class="glass-price">&euro;' + escapeHtml(wine.prezzo) + '</div>';
-                html += '</div>';
-
-                html += '<div style="text-align: center; margin: 15px 0;">';
-                html += '<span class="glass-qty-badge ' + qtyClass + '">📦 ' + wine.residuo + ' / ' + wine.qta + '</span>';
-                html += '</div>';
-
-                html += '<div class="glass-actions">';
-                html += '<button data-wine-id="' + wineId + '" data-delta="1">+</button>';
-                html += '<button data-wine-id="' + wineId + '" data-delta="-1"' + disabled + '>-</button>';
-                html += '<button class="btn-view" data-wine-id="' + wineId + '">📋</button>';
-                html += '</div>';
-
-                html += '</div>';
-            }
-
-            html += '</div>';
-            container.innerHTML = html;
-            attachEventListeners();
         }
 
         function displayMinimalView(wines) {
@@ -1566,7 +1380,7 @@
 
                 wineRegistry[wineId] = wine;
 
-                html += '<div class="wine-minimal-card">';
+                html += '<div class="wine-minimal-card" data-wine-id="' + wineId + '">';
 
                 html += '<div class="minimal-header">';
                 html += '<div class="minimal-name">' + escapeHtml(wine.nome) + '</div>';
@@ -1581,9 +1395,10 @@
                 html += '</div>';
 
                 html += '<div class="minimal-actions">';
-                html += '<button class="btn-add" data-wine-id="' + wineId + '" data-delta="1">+</button>';
-                html += '<button class="btn-remove" data-wine-id="' + wineId + '" data-delta="-1"' + disabled + '>-</button>';
-                html += '<button class="btn-view" data-wine-id="' + wineId + '">📋</button>';
+                html += '<button class="btn-add" data-wine-id="' + wineId + '" data-delta="1" onclick="event.stopPropagation();">➕</button>';
+                html += '<button class="btn-remove" data-wine-id="' + wineId + '" data-delta="-1"' + disabled + ' onclick="event.stopPropagation();">➖</button>';
+                html += '<button class="btn-duplicate" data-wine-id="' + wineId + '" onclick="event.stopPropagation();">📑</button>';
+                html += '<button class="btn-delete" data-wine-id="' + wineId + '" onclick="event.stopPropagation();">🗑️</button>';
                 html += '</div>';
 
                 html += '</div>';
@@ -1621,17 +1436,18 @@
 
                 wineRegistry[wineId] = wine;
 
-                html += '<tr>';
+                html += '<tr data-wine-id="' + wineId + '">';
                 html += '<td class="table-name">' + escapeHtml(wine.nome) + '</td>';
                 html += '<td>' + escapeHtml(wine.anno) + '</td>';
                 html += '<td>' + escapeHtml(wine.cantina) + '</td>';
                 html += '<td>&euro;' + escapeHtml(wine.prezzo) + '</td>';
                 html += '<td>' + wine.qta + '</td>';
                 html += '<td><strong>' + wine.residuo + '</strong></td>';
-                html += '<td><div class="table-actions">';
-                html += '<button class="btn-add" data-wine-id="' + wineId + '" data-delta="1">+</button>';
-                html += '<button class="btn-remove" data-wine-id="' + wineId + '" data-delta="-1"' + disabled + '>-</button>';
-                html += '<button class="btn-view" data-wine-id="' + wineId + '">📋</button>';
+                html += '<td onclick="event.stopPropagation();"><div class="table-actions">';
+                html += '<button class="btn-add" data-wine-id="' + wineId + '" data-delta="1">➕</button>';
+                html += '<button class="btn-remove" data-wine-id="' + wineId + '" data-delta="-1"' + disabled + '>➖</button>';
+                html += '<button class="btn-duplicate" data-wine-id="' + wineId + '">📑</button>';
+                html += '<button class="btn-delete" data-wine-id="' + wineId + '">🗑️</button>';
                 html += '</div></td>';
                 html += '</tr>';
             }
@@ -1641,19 +1457,108 @@
             attachEventListeners();
         }
 
+        function displayPremiumView(wines) {
+            var container = document.getElementById('wineContainer');
+
+            if (wines.length === 0) {
+                container.innerHTML = '<div class="loading">Nessun vino trovato</div>';
+                return;
+            }
+
+            wineRegistry = {};
+
+            var html = '<div class="wine-premium-header">';
+            html += '<div class="premium-header-content">';
+            html += '<div class="premium-header-title">La Tua Collezione di Vini</div>';
+            html += '<div class="premium-header-subtitle">Scopri e gestisci i tesori della tua cantina</div>';
+            html += '</div></div>';
+
+            html += '<div class="wine-premium-grid">';
+
+            for (var i = 0; i < wines.length; i++) {
+                var wine = wines[i];
+                var wineId = 'wine_' + currentTab + '_' + i;
+                var disabled = wine.residuo === 0 ? ' disabled' : '';
+                var stockClass = wine.residuo > 0 ? '' : 'zero';
+                var colorGradient = wineColors[i % wineColors.length];
+
+                wineRegistry[wineId] = wine;
+
+                html += '<div class="wine-premium-card" data-wine-id="' + wineId + '">';
+
+                html += '<div class="premium-card-image" style="background: ' + colorGradient + ';">🍷';
+                html += '<div class="premium-card-badge">' + escapeHtml(wine.anno) + '</div>';
+                html += '</div>';
+
+                html += '<div class="premium-card-body">';
+                html += '<div class="premium-card-name">' + escapeHtml(wine.nome) + '</div>';
+
+                html += '<div class="premium-card-info">';
+                html += '<div class="premium-card-cantina">🏛️ ' + escapeHtml(wine.cantina) + '</div>';
+                html += '</div>';
+
+                html += '<div class="premium-card-details">';
+                html += '<div class="premium-detail-item">';
+                html += '<div class="premium-detail-label">Prezzo</div>';
+                html += '<div class="premium-detail-value">&euro;' + escapeHtml(wine.prezzo) + '</div>';
+                html += '</div>';
+                html += '<div class="premium-detail-item">';
+                html += '<div class="premium-detail-label">Vitigno</div>';
+                html += '<div class="premium-detail-value" style="font-size: 12px;">' + escapeHtml(wine.vitigni.substring(0, 15)) + '</div>';
+                html += '</div>';
+                html += '</div>';
+
+                html += '<div class="premium-card-stock ' + stockClass + '">';
+                html += '📦 In Cantina: ' + wine.residuo + ' / ' + wine.qta + ' bottiglie';
+                html += '</div>';
+
+                html += '<div class="premium-card-actions">';
+                html += '<button class="btn-add" data-wine-id="' + wineId + '" data-delta="1" onclick="event.stopPropagation();">➕</button>';
+                html += '<button class="btn-remove" data-wine-id="' + wineId + '" data-delta="-1"' + disabled + ' onclick="event.stopPropagation();">➖</button>';
+                html += '<button class="btn-duplicate" data-wine-id="' + wineId + '" onclick="event.stopPropagation();">📑</button>';
+                html += '<button class="btn-delete" data-wine-id="' + wineId + '" onclick="event.stopPropagation();">🗑️</button>';
+                html += '</div>';
+
+                html += '</div></div>';
+            }
+
+            html += '</div>';
+            container.innerHTML = html;
+            attachEventListeners();
+        }
+
         function attachEventListeners() {
+            // Click su card/row per aprire scheda
+            document.querySelectorAll('.wine-minimal-card, .wine-premium-card, .wine-table tbody tr').forEach(function(el) {
+                el.addEventListener('click', function() {
+                    var wineId = this.getAttribute('data-wine-id');
+                    if (wineId) viewWine(wineId);
+                });
+            });
+
+            // Pulsanti azioni
             document.querySelectorAll('.btn-add, .btn-remove').forEach(function(btn) {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
                     var wineId = this.getAttribute('data-wine-id');
                     var delta = parseInt(this.getAttribute('data-delta'));
                     quickUpdate(wineId, delta);
                 });
             });
 
-            document.querySelectorAll('.btn-view, .btn-view-kanban').forEach(function(btn) {
-                btn.addEventListener('click', function() {
+            document.querySelectorAll('.btn-duplicate').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
                     var wineId = this.getAttribute('data-wine-id');
-                    viewWine(wineId);
+                    duplicateWine(wineId);
+                });
+            });
+
+            document.querySelectorAll('.btn-delete').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    var wineId = this.getAttribute('data-wine-id');
+                    deleteWine(wineId);
                 });
             });
         }
@@ -1669,10 +1574,118 @@
             return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
         }
 
+        function addNewWine() {
+            if (currentTab === 'Dashboard') {
+                alert('Seleziona una categoria (Rossi, Bianchi, Frizzanti)');
+                return;
+            }
+
+            isNewWine = true;
+            currentWine = {
+                nome: '',
+                anno: '',
+                cantina: '',
+                vitigni: '',
+                shop: '',
+                qta: 0,
+                prezzo: '',
+                residuo: 0,
+                prezzopieno: '',
+                note: '',
+                type: currentTab
+            };
+
+            document.getElementById('modalTitle').textContent = 'Nuovo Vino';
+            document.getElementById('fieldNome').value = '';
+            document.getElementById('fieldAnno').value = '';
+            document.getElementById('fieldCantina').value = '';
+            document.getElementById('fieldVitigni').value = '';
+            document.getElementById('fieldShop').value = '';
+            document.getElementById('fieldQta').value = 0;
+            document.getElementById('fieldPrezzo').value = '';
+            document.getElementById('fieldResiduo').value = 0;
+            document.getElementById('fieldPrezzopieno').value = '';
+            document.getElementById('fieldNote').value = '';
+
+            setEditMode(true);
+            document.getElementById('wineModal').classList.add('active');
+        }
+
+        function duplicateWine(wineId) {
+            var original = wineRegistry[wineId];
+            if (!original) return;
+
+            if (!confirm('Duplicare il vino "' + original.nome + '"?')) return;
+
+            isNewWine = true;
+            currentWine = {
+                nome: original.nome + ' (copia)',
+                anno: original.anno,
+                cantina: original.cantina,
+                vitigni: original.vitigni,
+                shop: original.shop,
+                qta: original.qta,
+                prezzo: original.prezzo,
+                residuo: original.residuo,
+                prezzopieno: original.prezzopieno,
+                note: original.note,
+                type: original.type
+            };
+
+            document.getElementById('modalTitle').textContent = 'Duplica Vino';
+            document.getElementById('fieldNome').value = currentWine.nome;
+            document.getElementById('fieldAnno').value = currentWine.anno;
+            document.getElementById('fieldCantina').value = currentWine.cantina;
+            document.getElementById('fieldVitigni').value = currentWine.vitigni;
+            document.getElementById('fieldShop').value = currentWine.shop;
+            document.getElementById('fieldQta').value = currentWine.qta;
+            document.getElementById('fieldPrezzo').value = currentWine.prezzo;
+            document.getElementById('fieldResiduo').value = currentWine.residuo;
+            document.getElementById('fieldPrezzopieno').value = currentWine.prezzopieno;
+            document.getElementById('fieldNote').value = currentWine.note;
+
+            setEditMode(true);
+            document.getElementById('wineModal').classList.add('active');
+        }
+
+        async function deleteWine(wineId) {
+            var wine = wineRegistry[wineId];
+            if (!wine) return;
+
+            if (!confirm('ATTENZIONE: Eliminare definitivamente il vino "' + wine.nome + '"?
+
+Questa azione NON può essere annullata!')) return;
+
+            try {
+                var range = wine.type + '!A' + wine.rowIndex + ':J' + wine.rowIndex;
+                var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + '?valueInputOption=RAW';
+
+                var emptyRow = ['', '', '', '', '', '', '', '', '', ''];
+
+                var response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer ' + accessToken,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ values: [emptyRow] })
+                });
+
+                if (!response.ok) throw new Error('Errore eliminazione');
+
+                alert('Vino eliminato con successo');
+                await loadData();
+
+            } catch (error) {
+                alert('Errore: ' + error.message);
+            }
+        }
+
         function viewWine(wineId) {
             currentWine = wineRegistry[wineId];
             if (!currentWine) return;
 
+            isNewWine = false;
             isEditMode = false;
 
             document.getElementById('modalTitle').textContent = currentWine.nome;
@@ -1695,6 +1708,7 @@
             document.getElementById('wineModal').classList.remove('active');
             currentWine = null;
             isEditMode = false;
+            isNewWine = false;
         }
 
         function toggleEdit() {
@@ -1736,21 +1750,42 @@
             ];
 
             try {
-                var range = currentWine.type + '!A' + currentWine.rowIndex + ':J' + currentWine.rowIndex;
-                var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + '?valueInputOption=RAW';
+                var range, url;
 
-                var response = await fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': 'Bearer ' + accessToken,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ values: [updates] })
-                });
+                if (isNewWine) {
+                    range = currentWine.type + '!A2:J1000';
+                    url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + ':append?valueInputOption=RAW';
 
-                if (!response.ok) throw new Error('Errore salvataggio');
+                    var response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + accessToken,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ values: [updates] })
+                    });
 
-                alert('Modifiche salvate!');
+                    if (!response.ok) throw new Error('Errore salvataggio nuovo vino');
+
+                    alert('Nuovo vino aggiunto!');
+                } else {
+                    range = currentWine.type + '!A' + currentWine.rowIndex + ':J' + currentWine.rowIndex;
+                    url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + '?valueInputOption=RAW';
+
+                    var response = await fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': 'Bearer ' + accessToken,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ values: [updates] })
+                    });
+
+                    if (!response.ok) throw new Error('Errore salvataggio');
+
+                    alert('Modifiche salvate!');
+                }
+
                 closeModal();
                 await loadData();
 
