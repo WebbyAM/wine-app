@@ -891,7 +891,7 @@
                         <div class="control-group">
                             <label>Ordina:</label>
                             <select id="sortBy">
-                                <option value="residuo-desc-prezzopieno-desc">Residuo ↓ / Prezzo Pieno ↓</option>
+                                <option value="residuo-desc-prezzopieno-asc">Residuo ↓ / Prezzo Pieno ↑</option>
                                 <option value="nome-asc">Nome A→Z</option>
                                 <option value="nome-desc">Nome Z→A</option>
                                 <option value="anno-asc">Anno ↑</option>
@@ -1248,9 +1248,9 @@
             var sortBy = document.getElementById('sortBy').value;
 
             filtered.sort(function(a, b) {
-                if (sortBy === 'residuo-desc-prezzopieno-desc') {
+                if (sortBy === 'residuo-desc-prezzopieno-asc') {
                     if (b.residuo !== a.residuo) return b.residuo - a.residuo;
-                    return parseFloat(b.prezzopieno || b.prezzo || 0) - parseFloat(a.prezzopieno || a.prezzo || 0);
+                    return parseFloat(a.prezzopieno || a.prezzo || 0) - parseFloat(b.prezzopieno || b.prezzo || 0);
                 } else if (sortBy === 'residuo-desc-prezzo-asc') {
                     if (b.residuo !== a.residuo) return b.residuo - a.residuo;
                     return parseFloat(a.prezzo || 0) - parseFloat(b.prezzo || 0);
