@@ -6,14 +6,14 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Wine Cellar">
-    <title>Wine Cellar - Gestione Cantina</title>
+    <meta name="apple-mobile-web-app-title" content="Wine Manager">
+    <title>Wine Manager</title>
 
-    <!-- Favicon SVG -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%238B0000' d='M50 10 L30 40 L30 70 Q30 85 50 90 Q70 85 70 70 L70 40 Z'/%3E%3Cpath fill='%23DC143C' d='M30 40 L70 40 L70 50 Q70 60 50 65 Q30 60 30 50 Z'/%3E%3Cellipse cx='50' cy='45' rx='15' ry='8' fill='%23fff' opacity='0.3'/%3E%3C/svg%3E">
+    <!-- Favicon SVG - V elegante bianca/verde su nero -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Cpath d='M20 15 L50 85 L35 85 L15 40 Z' fill='%23fff'/%3E%3Cpath d='M50 85 L80 15 L65 15 L50 50 Z' fill='%2390EE90'/%3E%3C/svg%3E">
 
-    <!-- Apple Touch Icon per iPhone -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%238B0000' rx='40'/%3E%3Cpath fill='%23DC143C' d='M90 30 L55 80 L55 130 Q55 150 90 160 Q125 150 125 130 L125 80 Z'/%3E%3Cpath fill='%23fff' d='M55 80 L125 80 L125 95 Q125 110 90 117 Q55 110 55 95 Z' opacity='0.9'/%3E%3Cellipse cx='90' cy='87' rx='25' ry='12' fill='%23fff' opacity='0.4'/%3E%3Ctext x='90' y='165' font-family='Arial,sans-serif' font-size='16' fill='%23fff' text-anchor='middle' font-weight='bold'%3EWINE%3C/text%3E%3C/svg%3E">
+    <!-- Apple Touch Icon - Uguale alla favicon -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%23000' rx='40'/%3E%3Cpath d='M36 27 L90 153 L63 153 L27 72 Z' fill='%23fff'/%3E%3Cpath d='M90 153 L144 27 L117 27 L90 90 Z' fill='%2390EE90'/%3E%3C/svg%3E">
 
     <style>
         * {
@@ -24,122 +24,292 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            background: #0a0a0a;
+            color: #e0e0e0;
             min-height: 100vh;
-            padding: 10px;
         }
 
+        /* LOGIN SCREEN */
         .login-screen {
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             text-align: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
         }
 
         .login-box {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            background: #1a1a1a;
+            padding: 50px 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
             max-width: 400px;
+            border: 1px solid #333;
         }
 
         .login-box h1 {
-            color: #1e3c72;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-
-        .login-box p {
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-        header {
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 15px;
-            padding: 15px 20px;
+            color: #90EE90;
             margin-bottom: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            font-size: 32px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
+            justify-content: center;
             gap: 10px;
         }
 
-        h1 {
-            color: #1e3c72;
-            font-size: 22px;
-            margin: 0;
+        .login-box h1::before {
+            content: 'V';
+            font-weight: bold;
+            font-size: 40px;
+            background: linear-gradient(135deg, #fff 50%, #90EE90 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .login-box p {
+            color: #999;
+            margin-bottom: 35px;
+            font-size: 14px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #90EE90, #7CCD7C);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(144, 238, 144, 0.4);
+        }
+
+        button:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* MAIN APP - PORTAL STYLE */
+        .app-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* HEADER UNIFICATO */
+        .main-header {
+            background: #1a1a1a;
+            border-bottom: 2px solid #90EE90;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #90EE90;
+        }
+
+        .header-brand::before {
+            content: 'V';
+            font-size: 32px;
+            background: linear-gradient(135deg, #fff 50%, #90EE90 50%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            color: #999;
+            font-size: 13px;
+        }
+
+        .user-info button {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+
+        /* NAVIGATION TABS */
+        .nav-tabs {
+            display: flex;
+            gap: 0;
+            padding: 0 30px;
+            background: #141414;
+        }
+
+        .nav-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            font-weight: 600;
             font-size: 14px;
+            color: #888;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            background: #1a1a1a;
+            color: #bbb;
+        }
+
+        .nav-tab.active {
+            color: #90EE90;
+            border-bottom-color: #90EE90;
+            background: #1a1a1a;
+        }
+
+        /* CONTENT AREA */
+        .content-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 30px;
+        }
+
+        /* DASHBOARD STATS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #141414 100%);
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #90EE90, #7CCD7C);
+        }
+
+        .stat-card:hover {
+            border-color: #90EE90;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(144, 238, 144, 0.15);
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #90EE90;
+            margin-bottom: 8px;
+        }
+
+        .stat-sublabel {
+            font-size: 13px;
             color: #666;
         }
 
-        button {
-            background: #2a5298;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s;
+        .stat-detail {
+            font-size: 12px;
+            color: #777;
+            margin-top: 8px;
+            padding-top: 12px;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        /* CONTROLS INTEGRATED */
+        .controls-bar {
+            background: #141414;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .controls-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-group label {
+            color: #888;
+            font-size: 13px;
             font-weight: 600;
         }
 
-        button:hover {
-            background: #1e3c72;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .controls {
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .filters {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .filter-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
         select {
-            padding: 8px 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            background: white;
+            padding: 10px 15px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 13px;
             cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        select:hover,
+        select:focus {
+            border-color: #90EE90;
+            outline: none;
         }
 
         .toggle {
@@ -151,139 +321,78 @@
         }
 
         .toggle input[type="checkbox"] {
-            width: 40px;
-            height: 20px;
+            width: 44px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: #90EE90;
+        }
+
+        .toggle label {
             cursor: pointer;
         }
 
-        .search-bar {
-            margin-top: 10px;
-        }
-
-        .search-bar input {
-            width: 100%;
+        .search-input {
+            flex: 1;
+            min-width: 250px;
             padding: 10px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            color: #e0e0e0;
             font-size: 14px;
+            transition: all 0.2s;
         }
 
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            overflow-x: auto;
+        .search-input:focus {
+            outline: none;
+            border-color: #90EE90;
+            box-shadow: 0 0 0 3px rgba(144, 238, 144, 0.1);
         }
 
-        .tab {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.3s;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .tab.active {
-            background: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            color: #1e3c72;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .stat-icon {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 5px;
-        }
-
-        .stat-value {
-            font-size: 32px;
-            font-weight: bold;
-            color: #1e3c72;
-        }
-
-        .stat-sublabel {
-            font-size: 12px;
-            color: #999;
-            margin-top: 5px;
-        }
-
+        /* VIEW SELECTOR */
         .view-selector {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            background: rgba(255,255,255,0.98);
-            padding: 10px;
-            border-radius: 10px;
-            flex-wrap: wrap;
+            gap: 15px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .view-btn {
-            padding: 8px 16px;
-            background: #f0f0f0;
-            border-radius: 8px;
+            padding: 10px 18px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
+            transition: all 0.2s;
             font-size: 13px;
+            font-weight: 600;
+            color: #888;
+        }
+
+        .view-btn:hover {
+            border-color: #90EE90;
+            color: #90EE90;
         }
 
         .view-btn.active {
-            background: #2a5298;
-            color: white;
-            border-color: #1e3c72;
+            background: linear-gradient(135deg, #90EE90, #7CCD7C);
+            border-color: #90EE90;
+            color: #000;
         }
 
         .add-wine-btn {
-            background: #10b981;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
             margin-left: auto;
+            background: linear-gradient(135deg, #90EE90, #7CCD7C);
+            color: #000;
+            border: none;
         }
 
-        .add-wine-btn:hover {
-            background: #059669;
-        }
-
-        /* TABELLA */
-        .wine-table-container {
-            background: white;
+        /* WINE LIST - UNIFIED TABLE */
+        .wine-list-container {
+            background: #141414;
+            border: 1px solid #2a2a2a;
             border-radius: 12px;
-            overflow-x: auto;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
         .wine-table {
@@ -292,130 +401,125 @@
         }
 
         .wine-table thead {
-            background: #2a5298;
-            color: white;
+            background: #1a1a1a;
+            border-bottom: 2px solid #90EE90;
             position: sticky;
             top: 0;
             z-index: 10;
         }
 
         .wine-table th {
-            padding: 15px 12px;
+            padding: 16px 12px;
             text-align: left;
-            font-weight: 600;
-            font-size: 13px;
+            font-weight: 700;
+            font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            color: #90EE90;
             white-space: nowrap;
         }
 
         .wine-table tbody tr {
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #1a1a1a;
             transition: all 0.2s;
             cursor: pointer;
         }
 
-        .wine-table tbody tr:nth-child(even) {
-            background: #f8f9fa;
-        }
-
-        .wine-table tbody tr:nth-child(odd) {
-            background: white;
-        }
-
         .wine-table tbody tr:hover {
-            background: #e3f2fd !important;
+            background: #1a1a1a;
         }
 
         .wine-table td {
-            padding: 12px;
+            padding: 14px 12px;
             font-size: 14px;
-            color: #1a1a1a;
+            color: #ccc;
         }
 
-        .table-name {
-            font-weight: bold;
-            color: #1e3c72;
+        .wine-name {
+            font-weight: 600;
+            color: #90EE90;
         }
 
-        .table-actions {
+        .wine-actions {
             display: flex;
-            gap: 5px;
+            gap: 6px;
             white-space: nowrap;
         }
 
-        .table-actions button {
+        .wine-actions button {
             padding: 6px 10px;
-            font-size: 18px;
+            font-size: 16px;
             background: transparent;
-            border: 1px solid #d0d0d0;
-            color: #555;
+            border: 1px solid #333;
+            border-radius: 4px;
+            transition: all 0.2s;
         }
 
-        .table-actions .btn-add {
-            border-color: #10b981;
-            color: #10b981;
+        .wine-actions .btn-add {
+            color: #90EE90;
+            border-color: #90EE90;
         }
 
-        .table-actions .btn-add:hover {
-            background: #10b981;
-            color: white;
+        .wine-actions .btn-add:hover {
+            background: #90EE90;
+            color: #000;
         }
 
-        .table-actions .btn-remove {
-            border-color: #ef4444;
-            color: #ef4444;
+        .wine-actions .btn-remove {
+            color: #ff6b6b;
+            border-color: #ff6b6b;
         }
 
-        .table-actions .btn-remove:hover {
-            background: #ef4444;
-            color: white;
+        .wine-actions .btn-remove:hover {
+            background: #ff6b6b;
+            color: #000;
         }
 
-        .table-actions .btn-duplicate {
-            border-color: #3b82f6;
-            color: #3b82f6;
+        .wine-actions .btn-duplicate {
+            color: #4da6ff;
+            border-color: #4da6ff;
         }
 
-        .table-actions .btn-duplicate:hover {
-            background: #3b82f6;
-            color: white;
+        .wine-actions .btn-duplicate:hover {
+            background: #4da6ff;
+            color: #000;
         }
 
-        .table-actions .btn-delete {
-            border-color: #dc2626;
-            color: #dc2626;
+        .wine-actions .btn-delete {
+            color: #ff4444;
+            border-color: #ff4444;
         }
 
-        .table-actions .btn-delete:hover {
-            background: #dc2626;
-            color: white;
+        .wine-actions .btn-delete:hover {
+            background: #ff4444;
+            color: #fff;
         }
 
-        /* MINIMAL VIEW */
-        .wine-minimal-grid {
+        /* MINIMAL VIEW - COMPACT CARDS */
+        .wine-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 15px;
         }
 
-        .wine-minimal-card {
-            background: white;
+        .wine-card {
+            background: #141414;
+            border: 1px solid #2a2a2a;
+            border-left: 4px solid #90EE90;
             border-radius: 8px;
-            padding: 16px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            transition: all 0.2s ease;
-            border-left: 3px solid #2a5298;
-            position: relative;
+            padding: 18px;
+            transition: all 0.2s;
             cursor: pointer;
         }
 
-        .wine-minimal-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-            transform: translateX(2px);
+        .wine-card:hover {
+            background: #1a1a1a;
+            border-color: #90EE90;
+            transform: translateX(4px);
+            box-shadow: 0 4px 16px rgba(144, 238, 144, 0.1);
         }
 
-        .minimal-header {
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
@@ -423,342 +527,113 @@
             gap: 10px;
         }
 
-        .minimal-name {
-            font-size: 15px;
+        .card-name {
+            font-size: 16px;
             font-weight: 600;
-            color: #1e3c72;
+            color: #90EE90;
             flex: 1;
-            line-height: 1.3;
         }
 
-        .minimal-year {
+        .card-year {
             font-size: 12px;
-            color: #666;
-            background: #f5f5f5;
-            padding: 2px 8px;
+            color: #777;
+            background: #1a1a1a;
+            padding: 3px 10px;
             border-radius: 4px;
             white-space: nowrap;
         }
 
-        .minimal-cantina {
+        .card-cantina {
             font-size: 13px;
-            color: #555;
-            margin-bottom: 12px;
+            color: #999;
+            margin-bottom: 14px;
         }
 
-        .minimal-stats {
+        .card-stats {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            padding: 8px 0;
-            border-top: 1px solid #f0f0f0;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 12px 0;
+            border-top: 1px solid #2a2a2a;
+            border-bottom: 1px solid #2a2a2a;
+            margin-bottom: 14px;
         }
 
-        .minimal-price {
-            font-size: 18px;
+        .card-price {
+            font-size: 20px;
             font-weight: bold;
-            color: #2a5298;
+            color: #90EE90;
         }
 
-        .minimal-qty {
+        .card-qty {
             font-size: 13px;
+            color: #777;
+        }
+
+        .card-qty-num {
+            font-weight: 600;
+            color: #90EE90;
+        }
+
+        .card-qty-num.zero {
             color: #666;
         }
 
-        .minimal-qty-num {
-            font-weight: 600;
-            color: #10b981;
-        }
-
-        .minimal-qty-num.zero {
-            color: #9e9e9e;
-        }
-
-        .minimal-actions {
+        .card-actions {
             display: flex;
             gap: 6px;
         }
 
-        .minimal-actions button {
+        .card-actions button {
             flex: 1;
             padding: 8px;
-            font-size: 18px;
-            font-weight: 500;
+            font-size: 16px;
+            background: transparent;
+            border: 1px solid #333;
             border-radius: 4px;
-            background: transparent;
-            border: 1px solid #d0d0d0;
-            color: #555;
-            transition: all 0.2s;
         }
 
-        .minimal-actions .btn-add {
-            border-color: #10b981;
-            color: #10b981;
+        .card-actions .btn-add {
+            color: #90EE90;
+            border-color: #90EE90;
         }
 
-        .minimal-actions .btn-add:hover {
-            background: #10b981;
-            color: white;
+        .card-actions .btn-add:hover {
+            background: #90EE90;
+            color: #000;
         }
 
-        .minimal-actions .btn-remove {
-            border-color: #ef4444;
-            color: #ef4444;
+        .card-actions .btn-remove {
+            color: #ff6b6b;
+            border-color: #ff6b6b;
         }
 
-        .minimal-actions .btn-remove:hover {
-            background: #ef4444;
-            color: white;
+        .card-actions .btn-remove:hover {
+            background: #ff6b6b;
+            color: #000;
         }
 
-        .minimal-actions .btn-duplicate {
-            border-color: #3b82f6;
-            color: #3b82f6;
+        .card-actions .btn-duplicate {
+            color: #4da6ff;
+            border-color: #4da6ff;
         }
 
-        .minimal-actions .btn-duplicate:hover {
-            background: #3b82f6;
-            color: white;
+        .card-actions .btn-duplicate:hover {
+            background: #4da6ff;
+            color: #000;
         }
 
-        .minimal-actions .btn-delete {
-            border-color: #dc2626;
-            color: #dc2626;
+        .card-actions .btn-delete {
+            color: #ff4444;
+            border-color: #ff4444;
         }
 
-        .minimal-actions .btn-delete:hover {
-            background: #dc2626;
-            color: white;
+        .card-actions .btn-delete:hover {
+            background: #ff4444;
+            color: #fff;
         }
 
-        /* PREMIUM VIEW - Modern Wine Portal Style */
-        .wine-premium-header {
-            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
-            color: white;
-            padding: 40px 30px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .wine-premium-header::before {
-            content: '🍷';
-            position: absolute;
-            font-size: 200px;
-            opacity: 0.1;
-            right: -30px;
-            top: -50px;
-        }
-
-        .premium-header-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .premium-header-title {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .premium-header-subtitle {
-            font-size: 16px;
-            opacity: 0.9;
-        }
-
-        .wine-premium-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
-        }
-
-        .wine-premium-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .wine-premium-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.2);
-        }
-
-        .premium-card-image {
-            height: 180px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .premium-card-image::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 50%;
-            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
-        }
-
-        .premium-card-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255,255,255,0.95);
-            color: #1e3c72;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            z-index: 1;
-        }
-
-        .premium-card-body {
-            padding: 20px;
-        }
-
-        .premium-card-name {
-            font-size: 18px;
-            font-weight: bold;
-            color: #1e3c72;
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        .premium-card-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .premium-card-cantina {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .premium-card-anno {
-            font-size: 13px;
-            background: #f0f0f0;
-            padding: 4px 10px;
-            border-radius: 12px;
-            color: #555;
-        }
-
-        .premium-card-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .premium-detail-item {
-            text-align: center;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-
-        .premium-detail-label {
-            font-size: 11px;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .premium-detail-value {
-            font-size: 16px;
-            font-weight: bold;
-            color: #2a5298;
-        }
-
-        .premium-card-stock {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 10px;
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            border-radius: 8px;
-            font-weight: bold;
-            margin-bottom: 12px;
-        }
-
-        .premium-card-stock.zero {
-            background: linear-gradient(135deg, #9e9e9e, #757575);
-        }
-
-        .premium-card-actions {
-            display: flex;
-            gap: 6px;
-        }
-
-        .premium-card-actions button {
-            flex: 1;
-            padding: 10px;
-            font-size: 20px;
-            border-radius: 6px;
-            background: transparent;
-            border: 1.5px solid #d0d0d0;
-            color: #555;
-            transition: all 0.2s;
-        }
-
-        .premium-card-actions .btn-add {
-            border-color: #10b981;
-            color: #10b981;
-        }
-
-        .premium-card-actions .btn-add:hover {
-            background: #10b981;
-            color: white;
-        }
-
-        .premium-card-actions .btn-remove {
-            border-color: #ef4444;
-            color: #ef4444;
-        }
-
-        .premium-card-actions .btn-remove:hover {
-            background: #ef4444;
-            color: white;
-        }
-
-        .premium-card-actions .btn-duplicate {
-            border-color: #3b82f6;
-            color: #3b82f6;
-        }
-
-        .premium-card-actions .btn-duplicate:hover {
-            background: #3b82f6;
-            color: white;
-        }
-
-        .premium-card-actions .btn-delete {
-            border-color: #dc2626;
-            color: #dc2626;
-        }
-
-        .premium-card-actions .btn-delete:hover {
-            background: #dc2626;
-            color: white;
-        }
-
+        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -766,7 +641,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.85);
             z-index: 1000;
             overflow-y: auto;
             padding: 20px;
@@ -779,115 +654,127 @@
         }
 
         .modal-content {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 30px;
             max-width: 600px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
-            position: relative;
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #90EE90;
         }
 
         .modal-header h2 {
-            color: #1e3c72;
-            font-size: 20px;
-            margin: 0;
+            color: #90EE90;
+            font-size: 22px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
         }
 
         .modal-close {
-            background: #ef4444;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 20px;
-            padding: 0;
-        }
-
-        .edit-icon {
-            background: #6366f1;
+            background: #ff4444;
             width: 36px;
             height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+            font-size: 22px;
+            padding: 0;
+            color: #fff;
+        }
+
+        .edit-icon {
+            background: #4da6ff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 18px;
             padding: 0;
         }
 
         .field-row {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .field-row label {
             display: block;
             font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-            font-size: 14px;
+            color: #90EE90;
+            margin-bottom: 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .field-row input,
         .field-row textarea {
             width: 100%;
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            padding: 12px 15px;
+            background: #141414;
+            border: 1px solid #333;
+            border-radius: 6px;
+            color: #e0e0e0;
             font-size: 14px;
             font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .field-row input:focus,
+        .field-row textarea:focus {
+            outline: none;
+            border-color: #90EE90;
+            box-shadow: 0 0 0 3px rgba(144, 238, 144, 0.1);
         }
 
         .field-row input:disabled,
         .field-row textarea:disabled {
-            background: #f5f5f5;
+            background: #0a0a0a;
             cursor: not-allowed;
+            opacity: 0.7;
         }
 
         .field-row textarea {
-            min-height: 80px;
+            min-height: 100px;
             resize: vertical;
         }
 
         .save-btn {
             width: 100%;
-            padding: 12px;
-            background: #10b981;
+            padding: 14px;
             font-size: 16px;
-            margin-top: 15px;
-        }
-
-        .save-btn:hover {
-            background: #059669;
+            margin-top: 20px;
         }
 
         .loading {
             text-align: center;
-            padding: 40px;
-            color: white;
-            font-size: 18px;
+            padding: 60px 20px;
+            color: #666;
+            font-size: 16px;
         }
 
         .error {
-            background: #ef4444;
-            color: white;
-            padding: 15px;
+            background: #2a1a1a;
+            border: 1px solid #ff4444;
+            color: #ff6b6b;
+            padding: 15px 20px;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .hidden {
@@ -895,25 +782,39 @@
         }
 
         @media (max-width: 768px) {
-            .wine-minimal-grid, .wine-premium-grid {
-                grid-template-columns: 1fr;
+            .header-top {
+                padding: 12px 15px;
             }
 
-            h1 {
+            .header-brand {
                 font-size: 18px;
             }
 
-            .filters {
+            .nav-tabs {
+                padding: 0 15px;
+                overflow-x: auto;
+            }
+
+            .nav-tab {
+                padding: 12px 18px;
+                font-size: 13px;
+            }
+
+            .content-wrapper {
+                padding: 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-row {
                 flex-direction: column;
                 align-items: stretch;
             }
 
-            .filter-group {
-                width: 100%;
-            }
-
-            .filter-group select {
-                flex: 1;
+            .wine-grid {
+                grid-template-columns: 1fr;
             }
 
             .wine-table {
@@ -922,11 +823,7 @@
 
             .wine-table th,
             .wine-table td {
-                padding: 8px 6px;
-            }
-
-            .premium-header-title {
-                font-size: 24px;
+                padding: 10px 8px;
             }
         }
     </style>
@@ -934,40 +831,42 @@
 <body>
     <div id="loginScreen" class="login-screen">
         <div class="login-box">
-            <h1>🍷 Wine Cellar Manager</h1>
+            <h1>Wine Manager</h1>
             <p>Accedi con il tuo account Google per gestire la tua cantina</p>
-            <button id="loginBtn" style="padding: 15px 30px; font-size: 16px;">
+            <button id="loginBtn" style="padding: 16px 32px; font-size: 15px;">
                 Accedi con Google
             </button>
         </div>
     </div>
 
-    <div id="appScreen" class="hidden">
-        <div class="container">
-            <header>
-                <h1>🍷 Wine Cellar Manager</h1>
+    <div id="appScreen" class="hidden app-wrapper">
+        <div class="main-header">
+            <div class="header-top">
+                <div class="header-brand">Wine Manager</div>
                 <div class="user-info">
                     <span id="userName"></span>
-                    <button id="logoutBtn" style="padding: 8px 16px; font-size: 13px;">Esci</button>
+                    <button id="logoutBtn">Esci</button>
                 </div>
-            </header>
-
-            <div class="tabs" id="tabsContainer">
-                <div class="tab active" data-tab="Dashboard">📊 Dashboard</div>
-                <div class="tab" data-tab="Rossi">🍷 Rossi</div>
-                <div class="tab" data-tab="Bianchi">🥂 Bianchi</div>
-                <div class="tab" data-tab="Frizzanti">🍾 Frizzanti</div>
             </div>
 
+            <div class="nav-tabs" id="navTabs">
+                <div class="nav-tab active" data-tab="Dashboard">📊 Dashboard</div>
+                <div class="nav-tab" data-tab="Rossi">🍷 Rossi</div>
+                <div class="nav-tab" data-tab="Bianchi">🥂 Bianchi</div>
+                <div class="nav-tab" data-tab="Frizzanti">🍾 Frizzanti</div>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
             <div id="dashboardView">
                 <div class="stats-grid" id="statsContainer"></div>
             </div>
 
             <div id="wineViews" class="hidden">
-                <div class="controls">
-                    <div class="filters">
-                        <div class="filter-group">
-                            <label>Ordina per:</label>
+                <div class="controls-bar">
+                    <div class="controls-row">
+                        <div class="control-group">
+                            <label>Ordina:</label>
                             <select id="sortBy">
                                 <option value="residuo-desc-prezzopieno-desc">Residuo ↓ / Prezzo Pieno ↓</option>
                                 <option value="nome-asc">Nome A→Z</option>
@@ -988,18 +887,17 @@
                             <input type="checkbox" id="hideEmpty">
                             <label for="hideEmpty">Nascondi esauriti</label>
                         </div>
+
+                        <div class="view-selector">
+                            <div class="view-btn" data-view="minimal">⚡ Minimal</div>
+                            <div class="view-btn active" data-view="table">📋 Tabella</div>
+                            <button class="add-wine-btn" id="addWineBtn">➕ Aggiungi Vino</button>
+                        </div>
                     </div>
 
-                    <div class="search-bar">
-                        <input type="text" id="searchInput" placeholder="🔍 Cerca per nome, cantina, vitigno...">
+                    <div class="controls-row">
+                        <input type="text" class="search-input" id="searchInput" placeholder="🔍 Cerca per nome, cantina, vitigno...">
                     </div>
-                </div>
-
-                <div class="view-selector">
-                    <div class="view-btn active" data-view="premium">✨ Premium</div>
-                    <div class="view-btn" data-view="minimal">⚡ Minimal</div>
-                    <div class="view-btn" data-view="table">📋 Tabella</div>
-                    <button class="add-wine-btn" id="addWineBtn">➕ Aggiungi Vino</button>
                 </div>
 
                 <div id="wineContainer" class="loading">Caricamento dati...</div>
@@ -1011,7 +909,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modalTitle">Dettagli Vino</h2>
-                <div style="display: flex; gap: 10px;">
+                <div class="modal-buttons">
                     <button class="edit-icon" id="editBtn">✏️</button>
                     <button class="modal-close" id="closeModalBtn">×</button>
                 </div>
@@ -1069,7 +967,7 @@
     <script>
         var wineData = { Rossi: [], Bianchi: [], Frizzanti: [] };
         var currentTab = 'Dashboard';
-        var currentView = 'premium';
+        var currentView = 'table';
         var accessToken = null;
         var currentWine = null;
         var isEditMode = false;
@@ -1080,16 +978,6 @@
         var CLIENT_ID = '943443702825-sh8451ijbbfeo2oubjo5ekskt1jler5l.apps.googleusercontent.com';
         var SPREADSHEET_ID = '1NF86I2BdDGmpOvas5t8-AyUcjLAGuNrg8y-3Et8n8Js';
 
-        var wineColors = [
-            'linear-gradient(135deg, #8B0000 0%, #DC143C 100%)',
-            'linear-gradient(135deg, #4B0082 0%, #9370DB 100%)',
-            'linear-gradient(135deg, #006400 0%, #228B22 100%)',
-            'linear-gradient(135deg, #8B4513 0%, #D2691E 100%)',
-            'linear-gradient(135deg, #2F4F4F 0%, #696969 100%)',
-            'linear-gradient(135deg, #800020 0%, #C71585 100%)'
-        ];
-
-        // FIX: Aggiungi event listeners DOPO il caricamento del DOM
         function initEventListeners() {
             document.getElementById('loginBtn').addEventListener('click', handleAuth);
             document.getElementById('logoutBtn').addEventListener('click', handleLogout);
@@ -1101,7 +989,7 @@
             document.getElementById('hideEmpty').addEventListener('change', applySortAndFilter);
             document.getElementById('searchInput').addEventListener('keyup', applySortAndFilter);
 
-            document.querySelectorAll('.tab').forEach(function(tab) {
+            document.querySelectorAll('.nav-tab').forEach(function(tab) {
                 tab.addEventListener('click', function() {
                     switchTab(this.getAttribute('data-tab'));
                 });
@@ -1125,9 +1013,7 @@
                 include_granted_scopes: 'true',
                 state: 'wine-app'
             });
-            var authUrl = oauth2Endpoint + '?' + params.toString();
-            console.log('Redirecting to:', authUrl);
-            window.location.href = authUrl;
+            window.location.href = oauth2Endpoint + '?' + params.toString();
         }
 
         function handleLogout() {
@@ -1201,6 +1087,8 @@
             var result = [];
             for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
+                if (!row[0]) continue;
+
                 var wine = {
                     rowIndex: i + 2,
                     nome: row[0] || '',
@@ -1215,9 +1103,7 @@
                     note: row[9] || '',
                     type: type
                 };
-                if (wine.nome) {
-                    result.push(wine);
-                }
+                result.push(wine);
             }
             return result;
         }
@@ -1274,10 +1160,11 @@
                 html += '<div class="stat-icon">' + t.icon + '</div>';
                 html += '<div class="stat-label">' + t.label + '</div>';
                 html += '<div class="stat-value">' + s.qta + ' bot.</div>';
-                html += '<div class="stat-sublabel">Residuo: ' + s.residuo + ' bot.</div>';
-                html += '<hr style="margin: 15px 0; border: none; border-top: 1px solid #e0e0e0;">';
-                html += '<div style="font-size: 13px; color: #666; margin: 4px 0;">💰 Costo Effettivo: <strong>€' + s.costoEffettivo.toFixed(2) + '</strong></div>';
-                html += '<div style="font-size: 13px; color: #666; margin: 4px 0;">💎 Costo Pieno: <strong>€' + s.costoPieno.toFixed(2) + '</strong></div>';
+                html += '<div class="stat-sublabel">Residuo: ' + s.residuo + ' bottiglie</div>';
+                html += '<div class="stat-detail">';
+                html += '💰 Costo Effettivo: <strong>€' + s.costoEffettivo.toFixed(2) + '</strong><br>';
+                html += '💎 Costo Pieno: <strong>€' + s.costoPieno.toFixed(2) + '</strong>';
+                html += '</div>';
                 html += '</div>';
             }
 
@@ -1287,10 +1174,10 @@
         function switchTab(tab) {
             currentTab = tab;
 
-            document.querySelectorAll('.tab').forEach(function(t) {
+            document.querySelectorAll('.nav-tab').forEach(function(t) {
                 t.classList.remove('active');
             });
-            document.querySelector('.tab[data-tab="' + tab + '"]').classList.add('active');
+            document.querySelector('.nav-tab[data-tab="' + tab + '"]').classList.add('active');
 
             if (tab === 'Dashboard') {
                 document.getElementById('dashboardView').classList.remove('hidden');
@@ -1370,59 +1257,9 @@
 
             if (currentView === 'minimal') {
                 displayMinimalView(filtered);
-            } else if (currentView === 'table') {
+            } else {
                 displayTableView(filtered);
-            } else if (currentView === 'premium') {
-                displayPremiumView(filtered);
             }
-        }
-
-        function displayMinimalView(wines) {
-            var container = document.getElementById('wineContainer');
-
-            if (wines.length === 0) {
-                container.innerHTML = '<div class="loading">Nessun vino trovato</div>';
-                return;
-            }
-
-            wineRegistry = {};
-            var html = '<div class="wine-minimal-grid">';
-
-            for (var i = 0; i < wines.length; i++) {
-                var wine = wines[i];
-                var wineId = 'wine_' + currentTab + '_' + i;
-                var disabled = wine.residuo === 0 ? ' disabled' : '';
-                var qtyClass = wine.residuo > 0 ? '' : 'zero';
-
-                wineRegistry[wineId] = wine;
-
-                html += '<div class="wine-minimal-card" data-wine-id="' + wineId + '">';
-
-                html += '<div class="minimal-header">';
-                html += '<div class="minimal-name">' + escapeHtml(wine.nome) + '</div>';
-                html += '<div class="minimal-year">' + escapeHtml(wine.anno) + '</div>';
-                html += '</div>';
-
-                html += '<div class="minimal-cantina">' + escapeHtml(wine.cantina) + '</div>';
-
-                html += '<div class="minimal-stats">';
-                html += '<div class="minimal-price">&euro;' + escapeHtml(wine.prezzo) + '</div>';
-                html += '<div class="minimal-qty">Residuo: <span class="minimal-qty-num ' + qtyClass + '">' + wine.residuo + '</span> / ' + wine.qta + '</div>';
-                html += '</div>';
-
-                html += '<div class="minimal-actions">';
-                html += '<button class="btn-add" data-wine-id="' + wineId + '" data-delta="1" onclick="event.stopPropagation();">➕</button>';
-                html += '<button class="btn-remove" data-wine-id="' + wineId + '" data-delta="-1"' + disabled + ' onclick="event.stopPropagation();">➖</button>';
-                html += '<button class="btn-duplicate" data-wine-id="' + wineId + '" onclick="event.stopPropagation();">📑</button>';
-                html += '<button class="btn-delete" data-wine-id="' + wineId + '" onclick="event.stopPropagation();">🗑️</button>';
-                html += '</div>';
-
-                html += '</div>';
-            }
-
-            html += '</div>';
-            container.innerHTML = html;
-            attachEventListeners();
         }
 
         function displayTableView(wines) {
@@ -1434,7 +1271,7 @@
             }
 
             wineRegistry = {};
-            var html = '<div class="wine-table-container"><table class="wine-table">';
+            var html = '<div class="wine-list-container"><table class="wine-table">';
             html += '<thead><tr>';
             html += '<th>Nome</th>';
             html += '<th>Anno</th>';
@@ -1453,13 +1290,13 @@
                 wineRegistry[wineId] = wine;
 
                 html += '<tr data-wine-id="' + wineId + '">';
-                html += '<td class="table-name">' + escapeHtml(wine.nome) + '</td>';
+                html += '<td class="wine-name">' + escapeHtml(wine.nome) + '</td>';
                 html += '<td>' + escapeHtml(wine.anno) + '</td>';
                 html += '<td>' + escapeHtml(wine.cantina) + '</td>';
                 html += '<td>&euro;' + escapeHtml(wine.prezzo) + '</td>';
                 html += '<td>' + wine.qta + '</td>';
                 html += '<td><strong>' + wine.residuo + '</strong></td>';
-                html += '<td onclick="event.stopPropagation();"><div class="table-actions">';
+                html += '<td onclick="event.stopPropagation();"><div class="wine-actions">';
                 html += '<button class="btn-add" data-wine-id="' + wineId + '" data-delta="1">➕</button>';
                 html += '<button class="btn-remove" data-wine-id="' + wineId + '" data-delta="-1"' + disabled + '>➖</button>';
                 html += '<button class="btn-duplicate" data-wine-id="' + wineId + '">📑</button>';
@@ -1473,7 +1310,7 @@
             attachEventListeners();
         }
 
-        function displayPremiumView(wines) {
+        function displayMinimalView(wines) {
             var container = document.getElementById('wineContainer');
 
             if (wines.length === 0) {
@@ -1482,60 +1319,38 @@
             }
 
             wineRegistry = {};
-
-            var html = '<div class="wine-premium-header">';
-            html += '<div class="premium-header-content">';
-            html += '<div class="premium-header-title">La Tua Collezione di Vini</div>';
-            html += '<div class="premium-header-subtitle">Scopri e gestisci i tesori della tua cantina</div>';
-            html += '</div></div>';
-
-            html += '<div class="wine-premium-grid">';
+            var html = '<div class="wine-grid">';
 
             for (var i = 0; i < wines.length; i++) {
                 var wine = wines[i];
                 var wineId = 'wine_' + currentTab + '_' + i;
                 var disabled = wine.residuo === 0 ? ' disabled' : '';
-                var stockClass = wine.residuo > 0 ? '' : 'zero';
-                var colorGradient = wineColors[i % wineColors.length];
+                var qtyClass = wine.residuo > 0 ? '' : 'zero';
 
                 wineRegistry[wineId] = wine;
 
-                html += '<div class="wine-premium-card" data-wine-id="' + wineId + '">';
+                html += '<div class="wine-card" data-wine-id="' + wineId + '">';
 
-                html += '<div class="premium-card-image" style="background: ' + colorGradient + ';">🍷';
-                html += '<div class="premium-card-badge">' + escapeHtml(wine.anno) + '</div>';
+                html += '<div class="card-header">';
+                html += '<div class="card-name">' + escapeHtml(wine.nome) + '</div>';
+                html += '<div class="card-year">' + escapeHtml(wine.anno) + '</div>';
                 html += '</div>';
 
-                html += '<div class="premium-card-body">';
-                html += '<div class="premium-card-name">' + escapeHtml(wine.nome) + '</div>';
+                html += '<div class="card-cantina">' + escapeHtml(wine.cantina) + '</div>';
 
-                html += '<div class="premium-card-info">';
-                html += '<div class="premium-card-cantina">🏛️ ' + escapeHtml(wine.cantina) + '</div>';
-                html += '</div>';
-
-                html += '<div class="premium-card-details">';
-                html += '<div class="premium-detail-item">';
-                html += '<div class="premium-detail-label">Prezzo</div>';
-                html += '<div class="premium-detail-value">&euro;' + escapeHtml(wine.prezzo) + '</div>';
-                html += '</div>';
-                html += '<div class="premium-detail-item">';
-                html += '<div class="premium-detail-label">Vitigno</div>';
-                html += '<div class="premium-detail-value" style="font-size: 12px;">' + escapeHtml(wine.vitigni.substring(0, 15)) + '</div>';
-                html += '</div>';
+                html += '<div class="card-stats">';
+                html += '<div class="card-price">&euro;' + escapeHtml(wine.prezzo) + '</div>';
+                html += '<div class="card-qty">Residuo: <span class="card-qty-num ' + qtyClass + '">' + wine.residuo + '</span> / ' + wine.qta + '</div>';
                 html += '</div>';
 
-                html += '<div class="premium-card-stock ' + stockClass + '">';
-                html += '📦 In Cantina: ' + wine.residuo + ' / ' + wine.qta + ' bottiglie';
-                html += '</div>';
-
-                html += '<div class="premium-card-actions">';
+                html += '<div class="card-actions">';
                 html += '<button class="btn-add" data-wine-id="' + wineId + '" data-delta="1" onclick="event.stopPropagation();">➕</button>';
                 html += '<button class="btn-remove" data-wine-id="' + wineId + '" data-delta="-1"' + disabled + ' onclick="event.stopPropagation();">➖</button>';
                 html += '<button class="btn-duplicate" data-wine-id="' + wineId + '" onclick="event.stopPropagation();">📑</button>';
                 html += '<button class="btn-delete" data-wine-id="' + wineId + '" onclick="event.stopPropagation();">🗑️</button>';
                 html += '</div>';
 
-                html += '</div></div>';
+                html += '</div>';
             }
 
             html += '</div>';
@@ -1544,7 +1359,7 @@
         }
 
         function attachEventListeners() {
-            document.querySelectorAll('.wine-minimal-card, .wine-premium-card, .wine-table tbody tr').forEach(function(el) {
+            document.querySelectorAll('.wine-card, .wine-table tbody tr').forEach(function(el) {
                 el.addEventListener('click', function() {
                     var wineId = this.getAttribute('data-wine-id');
                     if (wineId) viewWine(wineId);
@@ -1687,6 +1502,7 @@
 
                 alert('Vino eliminato con successo');
                 await loadData();
+                applySortAndFilter();
 
             } catch (error) {
                 alert('Errore: ' + error.message);
@@ -1762,14 +1578,25 @@
             ];
 
             try {
-                var range, url;
-
                 if (isNewWine) {
-                    range = currentWine.type + '!A2:J1000';
-                    url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + ':append?valueInputOption=RAW';
+                    console.log('Aggiungendo nuovo vino al foglio:', currentWine.type);
+                    console.log('Dati:', updates);
+
+                    // FIX: Trova la prima riga vuota
+                    var getAllUrl = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + currentWine.type + '!A:A';
+                    var getAllResponse = await fetch(getAllUrl, {
+                        headers: { 'Authorization': 'Bearer ' + accessToken }
+                    });
+                    var getAllData = await getAllResponse.json();
+                    var nextRow = (getAllData.values ? getAllData.values.length : 1) + 1;
+
+                    console.log('Prossima riga disponibile:', nextRow);
+
+                    var range = currentWine.type + '!A' + nextRow + ':J' + nextRow;
+                    var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + '?valueInputOption=USER_ENTERED';
 
                     var response = await fetch(url, {
-                        method: 'POST',
+                        method: 'PUT',
                         headers: {
                             'Authorization': 'Bearer ' + accessToken,
                             'Content-Type': 'application/json'
@@ -1777,12 +1604,16 @@
                         body: JSON.stringify({ values: [updates] })
                     });
 
-                    if (!response.ok) throw new Error('Errore salvataggio nuovo vino');
+                    if (!response.ok) {
+                        var errorData = await response.json();
+                        console.error('Errore API:', errorData);
+                        throw new Error('Errore salvataggio: ' + (errorData.error.message || 'Sconosciuto'));
+                    }
 
-                    alert('Nuovo vino aggiunto!');
+                    alert('Nuovo vino aggiunto con successo!');
                 } else {
-                    range = currentWine.type + '!A' + currentWine.rowIndex + ':J' + currentWine.rowIndex;
-                    url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + '?valueInputOption=RAW';
+                    var range = currentWine.type + '!A' + currentWine.rowIndex + ':J' + currentWine.rowIndex;
+                    var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + '?valueInputOption=USER_ENTERED';
 
                     var response = await fetch(url, {
                         method: 'PUT',
@@ -1801,7 +1632,13 @@
                 closeModal();
                 await loadData();
 
+                // Rimani sul tab corrente
+                if (currentTab !== 'Dashboard') {
+                    applySortAndFilter();
+                }
+
             } catch (error) {
+                console.error('Errore completo:', error);
                 alert('Errore: ' + error.message);
             }
         }
@@ -1812,7 +1649,7 @@
 
             var newQty = Math.max(0, wine.residuo + delta);
             var range = wine.type + '!H' + wine.rowIndex;
-            var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + '?valueInputOption=RAW';
+            var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SPREADSHEET_ID + '/values/' + range + '?valueInputOption=USER_ENTERED';
 
             try {
                 var response = await fetch(url, {
@@ -1824,10 +1661,11 @@
                     body: JSON.stringify({ values: [[newQty]] })
                 });
 
-                if (!response.ok) throw new Error('Errore');
+                if (!response.ok) throw new Error('Errore aggiornamento');
 
                 wine.residuo = newQty;
                 await loadData();
+                applySortAndFilter();
 
             } catch (error) {
                 alert('Errore: ' + error.message);
